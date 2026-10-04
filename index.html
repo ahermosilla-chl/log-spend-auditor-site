@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log Spend Auditor — Local-first Splunk ingest cost analysis</title>
+<meta name="description" content="Log Spend Auditor is a local-first desktop CLI for Splunk teams that analyzes aggregated ingest and usage metadata to identify high-cost datasets and optimization opportunities.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Log Spend Auditor — Local-first Splunk ingest cost analysis">
+<meta property="og:description" content="Find where your Splunk ingest budget is going — without sending your data anywhere.">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="prompt">&gt;_</span> Log Spend Auditor</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#features">Community vs Pro</a></li>
+        <li><a href="#local-first">Local-first</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero">
+    <div class="wrap grid">
+      <div>
+        <p class="eyebrow">Log Spend Auditor</p>
+        <h1>Find where your Splunk ingest budget is going — without sending your data anywhere.</h1>
+        <p class="lead">Log Spend Auditor is a local-first desktop CLI for Splunk teams that analyzes aggregated ingest and usage metadata to identify high-cost datasets and optimization opportunities.</p>
+        <p><a class="btn" href="#features">View product features</a></p>
+      </div>
+      <figure class="terminal">
+        <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>terminal</span></div>
+<pre aria-label="Example Quickscan output on synthetic sample data"><span class="c">$</span> <span class="k">splunk-spend-auditor</span> quickscan --from-csv sample-data/case_mixed
+Observed ingest: 199.9 GB/day
+Datasets analyzed: 12
+
+Possible waste: 2 datasets, 67.9 GB/day
+Review (manual validation recommended): 2 datasets, 9.4 GB/day
+
+Highest-impact candidates:
+  - app:verbose_debug  POSSIBLE_WASTE  38.0 GB/day
+  - windows:eventlog_raw  POSSIBLE_WASTE  29.9 GB/day
+  - integration:partner_feed  REVIEW  9.1 GB/day</pre>
+        <figcaption>Abridged Quickscan output on the synthetic sample data bundled with the tool. Not customer data.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="problem">
+    <div class="wrap">
+      <h2>Ingest grows. Its value doesn't always keep up.</h2>
+      <div class="prose">
+        <p>Splunk environments can accumulate large amounts of ingest from datasets whose operational value may no longer justify their cost.</p>
+        <p>Log Spend Auditor helps teams identify where investigation is worthwhile. It surfaces candidates for review, with the evidence behind them — it never tells you to delete data, and it does not promise savings.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><h3>Connect or import</h3><p>Connect read-only to Splunk, or provide exported CSV metadata.</p></li>
+        <li><h3>Analyze</h3><p>Analyze ingest against usage and evidence signals.</p></li>
+        <li><h3>Review</h3><p>Review optimization candidates and the supporting evidence.</p></li>
+      </ol>
+      <p class="note">Works with real Splunk data through the REST API or CSV exports. Designed for Splunk teams.</p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Community vs Pro</h2>
+      <p class="section-lead">Community discovers the problem. Pro explains the problem.</p>
+      <div class="editions">
+        <div class="edition">
+          <span class="tag">Community</span>
+          <p class="tagline">Discover where to look.</p>
+          <ul class="check">
+            <li>Full synthetic demo</li>
+            <li>Real-environment Quickscan</li>
+            <li>Observed ingest</li>
+            <li>Candidate counts</li>
+            <li>Potential optimization estimate</li>
+            <li>Top candidate preview</li>
+          </ul>
+        </div>
+        <div class="edition pro">
+          <span class="tag">Pro</span>
+          <p class="tagline">Understand why, and what to review.</p>
+          <ul class="check">
+            <li>Full audit</li>
+            <li>Complete dataset inventory</li>
+            <li>Evidence and explanations</li>
+            <li>Data Value Score</li>
+            <li>Recommendations</li>
+            <li>HTML + Markdown reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="local-first">
+    <div class="wrap">
+      <h2>Local-first by design</h2>
+      <p class="section-lead">Read-only analysis that runs on your machine. No SaaS backend required.</p>
+      <div class="cards">
+        <div class="card"><h3>Runs locally</h3><p>Log Spend Auditor runs on the customer's machine.</p></div>
+        <div class="card"><h3>No raw events</h3><p>No raw Splunk events are sent to Log Spend Auditor servers. The analysis uses aggregated ingest and usage metadata.</p></div>
+        <div class="card"><h3>No telemetry</h3><p>The product collects no usage telemetry or analytics.</p></div>
+        <div class="card"><h3>Your credentials stay with you</h3><p>Splunk credentials are not uploaded to us.</p></div>
+        <div class="card"><h3>Licensing only</h3><p>Licensing uses Lemon Squeezy only for license activation and validation. No Splunk customer data is sent to Lemon Squeezy.</p></div>
+        <div class="card"><h3>Read-only</h3><p>It does not modify Splunk configuration or data.</p></div>
+      </div>
+      <p class="note">Details are in the <a href="privacy/">Privacy</a> page.</p>
+    </div>
+  </section>
+
+  <section id="platforms">
+    <div class="wrap">
+      <h2>Platforms</h2>
+      <ul class="platforms">
+        <li>macOS</li>
+        <li>Windows</li>
+        <li>Linux</li>
+      </ul>
+      <p>Standalone builds are prepared for macOS, Windows and Linux.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p>Support: <a href="mailto:alvaro.duemis@gmail.com">alvaro.duemis@gmail.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <ul class="links">
+      <li><a href="privacy/">Privacy</a></li>
+      <li><a href="terms/">Terms</a></li>
+    </ul>
+    <p>Splunk is a trademark of Splunk Inc. Log Spend Auditor is an independent product and is not affiliated with or endorsed by Splunk Inc.</p>
+    <p>&copy; Log Spend Auditor</p>
+  </div>
+</footer>
+</body>
+</html>

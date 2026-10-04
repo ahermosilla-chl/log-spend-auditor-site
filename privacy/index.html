@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Log Spend Auditor</title>
+<meta name="description" content="How Log Spend Auditor and this website handle information: the product runs locally, collects no telemetry and does not send Splunk data to us.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy — Log Spend Auditor">
+<meta property="og:description" content="How Log Spend Auditor and this website handle information: the product runs locally, collects no telemetry and does not send Splunk data to us.">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="prompt">&gt;_</span> Log Spend Auditor</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../privacy/">Privacy</a></li>
+        <li><a href="../terms/">Terms</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section>
+<div class="wrap prose">
+<h1>Privacy</h1>
+<p class="note">Last updated: 2026-10-04</p>
+<p>This page describes how Log Spend Auditor and this website handle information. Log Spend Auditor is a local-first desktop command-line tool: its analysis runs on your own machine.</p>
+
+<h2>The product runs locally</h2>
+<ul>
+<li>Log Spend Auditor runs on your computer. The analysis engine does not send raw Splunk events to us.</li>
+<li>The CLI collects no usage analytics or telemetry.</li>
+<li>Splunk credentials (such as a REST token) are read locally and are used only to connect to the Splunk instance you specify. They are not uploaded to us.</li>
+<li>Reports are generated and stored on your machine.</li>
+</ul>
+
+<h2>Licensing and payments (Lemon Squeezy)</h2>
+<ul>
+<li>Pro features require a license. Licensing is handled with Lemon Squeezy. Lemon Squeezy may process licensing and payment-related information separately, under its own terms and privacy policy. When commercial sales are available, it may act as merchant of record.</li>
+<li>When you activate, validate or deactivate a license, the tool contacts the Lemon Squeezy license service. Only the licensing data required for that operation is transmitted: your license key and an installation label (the operating system name plus a random identifier; never your computer's hostname). As with any internet connection, the service can also see your IP address.</li>
+<li>The tool contacts Lemon Squeezy only for activation, deactivation, and for Pro audits when a periodic re-validation is due. The demo and the Community Quickscan do not contact it.</li>
+<li>No Splunk credentials, Splunk host data, reports, dataset names, queries or raw events are sent to Lemon Squeezy.</li>
+<li>Your license key and activation details are stored in a small file on your own computer. They are not stored on our servers.</li>
+</ul>
+
+<h2>This website</h2>
+<ul>
+<li>This website is static. It does not use cookies, analytics, tracking pixels, advertising, or third-party scripts or fonts.</li>
+<li>The hosting provider may generate ordinary server or CDN logs (for example IP address, requested page and browser type) as part of serving the site.</li>
+</ul>
+
+<h2>Contact</h2>
+<p>If you email us, we use your email address and message only to respond. Questions about this policy: <a href="mailto:alvaro.duemis@gmail.com">alvaro.duemis@gmail.com</a>.</p>
+
+<h2>Changes</h2>
+<p>This policy may be updated as the product evolves. The date above shows the latest revision.</p>
+</div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <ul class="links">
+      <li><a href="../privacy/">Privacy</a></li>
+      <li><a href="../terms/">Terms</a></li>
+    </ul>
+    <p>Splunk is a trademark of Splunk Inc. Log Spend Auditor is an independent product and is not affiliated with or endorsed by Splunk Inc.</p>
+  </div>
+</footer>
+</body>
+</html>
