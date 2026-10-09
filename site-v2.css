@@ -239,6 +239,82 @@ ul.check li::before { content: ""; position: absolute; left: 3px; top: 1.08em; w
 .doc li { margin: 9px 0; padding-left: 4px; }
 .doc li::marker { color: var(--accent); }
 
+/* ---------- architecture diagram (HTML + CSS only; no scripts, no inline styles) ---------- */
+.arch { position: relative; margin-top: 48px; padding: 36px 32px 28px; border: 1px solid var(--border-strong); border-radius: 18px; background: rgba(13, 17, 23, .72); box-shadow: var(--shadow); overflow: hidden; }
+.arch::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, #000 20%, transparent 85%); mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, #000 20%, transparent 85%); }
+.arch-flow { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.45fr) minmax(0, 1.4fr); gap: 44px; align-items: stretch; }
+.stage { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.stage-tag { display: flex; align-items: baseline; gap: 10px; margin: 0 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-strong); }
+.stage-no { font: 600 13px var(--mono); color: var(--accent); letter-spacing: .04em; }
+.stage-name { font: 600 12px var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.stage-body { flex: 1; padding: 20px; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); min-width: 0; }
+.stage h3 { font-size: 16.5px; margin-bottom: 14px; }
+.stage-text { margin: 14px 0 0; font-size: 14px; color: var(--text-2); }
+.stage-note { margin: 6px 0 0; font-size: 13px; color: var(--faint); }
+
+/* connectors between stages (decorative) */
+.stage:not(:last-child)::after { content: ""; position: absolute; top: 56%; right: -44px; width: 44px; height: 1px; background: linear-gradient(90deg, var(--border-strong), var(--accent-line)); }
+.stage:not(:last-child)::before { content: ""; position: absolute; top: calc(56% - 3px); right: -46px; width: 7px; height: 7px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); transform: rotate(45deg); }
+
+/* 01 input */
+.sources { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.src { padding: 5px 10px; border: 1px solid rgba(124, 196, 245, .35); border-radius: 7px; background: rgba(124, 196, 245, .07); font: 500 12.5px/1.4 var(--mono); color: var(--cyan); }
+.src-or { padding-left: 4px; font: 500 12px var(--mono); color: var(--faint); }
+
+/* 02 collect */
+.props { display: flex; flex-direction: column; gap: 8px; }
+.props li { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--text-2); }
+.props li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex: none; }
+
+/* 03 engine: visually dominant */
+.stage-engine .stage-tag { border-bottom-color: var(--accent-line); }
+.stage-engine .stage-body { border-color: var(--accent-line); background: linear-gradient(180deg, #112019, var(--surface) 70%); box-shadow: 0 0 0 1px rgba(62, 207, 142, .06); padding: 24px 22px; }
+.stage-engine h3 { font-size: 19px; }
+.signals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.signals li { padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px; background: rgba(11, 14, 19, .6); font-size: 13.5px; line-height: 1.35; color: var(--text); }
+.tags-label { margin: 22px 0 10px; font: 600 11.5px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { padding: 3px 8px; border-radius: 5px; font: 600 11px/1.5 var(--mono); letter-spacing: .03em; border: 1px solid transparent; }
+.tag-waste { color: var(--red); background: rgba(240, 143, 143, .10); border-color: rgba(240, 143, 143, .25); }
+.tag-review { color: var(--amber); background: rgba(230, 185, 90, .10); border-color: rgba(230, 185, 90, .25); }
+.tag-normal { color: var(--text-2); background: rgba(255, 255, 255, .04); border-color: var(--border-strong); }
+.tag-protected { color: var(--cyan); background: rgba(124, 196, 245, .08); border-color: rgba(124, 196, 245, .28); }
+.tag-value { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+.tag-unknown { color: var(--faint); background: transparent; border-color: var(--border-strong); border-style: dashed; }
+
+/* 04 outputs: two levels */
+.outputs { display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+.output { padding: 14px 16px; border: 1px solid var(--border); border-radius: 9px; background: rgba(11, 14, 19, .5); }
+.output-pro { border-color: var(--accent-line); background: rgba(62, 207, 142, .05); }
+.output h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 10px; font-size: 14.5px; }
+.out-edition { font: 700 11.5px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.output-pro .out-edition { color: var(--accent); }
+.out-name { font-weight: 600; }
+.output ul { display: flex; flex-direction: column; gap: 5px; }
+.output li { position: relative; padding-left: 14px; font-size: 13.5px; line-height: 1.4; color: var(--text-2); }
+.output li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 1px; background: var(--faint); }
+.output-pro li::before { background: var(--accent); }
+
+/* footer statements */
+.arch-foot { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 32px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-strong); }
+.arch-claim { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.arch-secure { margin: 0; font: 500 13.5px var(--mono); color: var(--accent); }
+
+/* tablet / mobile: vertical stepped sequence */
+@media (max-width: 1180px) {
+  .arch { padding: 28px 22px 22px; }
+  .arch-flow { grid-template-columns: minmax(0, 1fr); gap: 40px; max-width: 640px; margin: 0 auto; }
+  .stage:not(:last-child)::after { top: auto; right: auto; bottom: -34px; left: 28px; width: 1px; height: 28px; background: linear-gradient(180deg, var(--border-strong), var(--accent-line)); }
+  .stage:not(:last-child)::before { top: auto; right: auto; bottom: -34px; left: 25px; transform: rotate(135deg); }
+  .arch-foot { max-width: 640px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 560px) {
+  .arch { margin-top: 36px; padding: 22px 14px 18px; border-radius: 14px; }
+  .stage-body { padding: 16px; }
+  .stage-engine .stage-body { padding: 18px 16px; }
+  .signals { grid-template-columns: 1fr; }
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 1080px) {
   :root { --gutter: 28px; }

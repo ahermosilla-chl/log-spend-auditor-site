@@ -135,6 +135,98 @@
     </div>
   </section>
 
+  <section class="section" id="architecture" aria-labelledby="arch-title">
+    <div class="wrap">
+      <p class="eyebrow">Architecture</p>
+      <h2 id="arch-title">How Log Spend Auditor works</h2>
+      <p class="body-lg narrow">From Splunk ingest metadata to actionable findings — entirely on your machine.</p>
+
+      <div class="arch">
+        <ol class="arch-flow" aria-label="Log Spend Auditor processing pipeline">
+          <li class="stage stage-input">
+            <p class="stage-tag"><span class="stage-no">01</span><span class="stage-name">Input</span></p>
+            <div class="stage-body">
+              <h3>Splunk environment</h3>
+              <ul class="sources">
+                <li class="src">REST API metadata</li>
+                <li class="src-or" aria-hidden="true">or</li>
+                <li class="src">CSV export</li>
+              </ul>
+              <p class="stage-text">Aggregated ingest + usage signals</p>
+              <p class="stage-note">No raw Splunk events required.</p>
+            </div>
+          </li>
+
+          <li class="stage stage-collect">
+            <p class="stage-tag"><span class="stage-no">02</span><span class="stage-name">Collect</span></p>
+            <div class="stage-body">
+              <h3>Read-only Collector</h3>
+              <ul class="props">
+                <li>Read-only</li>
+                <li>Local processing</li>
+                <li>No telemetry</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="stage stage-engine">
+            <p class="stage-tag"><span class="stage-no">03</span><span class="stage-name">Analyze</span></p>
+            <div class="stage-body">
+              <h3>Analysis Engine</h3>
+              <ul class="signals">
+                <li>Ingest volume</li>
+                <li>Usage signals</li>
+                <li>Evidence scoring</li>
+                <li>Risk classification</li>
+              </ul>
+              <p class="tags-label">Classification states</p>
+              <ul class="tags">
+                <li class="tag tag-waste">POSSIBLE_WASTE</li>
+                <li class="tag tag-review">REVIEW</li>
+                <li class="tag tag-normal">NORMAL</li>
+                <li class="tag tag-protected">PROTECTED</li>
+                <li class="tag tag-value">HIGH_VALUE</li>
+                <li class="tag tag-unknown">UNKNOWN</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="stage stage-act">
+            <p class="stage-tag"><span class="stage-no">04</span><span class="stage-name">Act</span></p>
+            <div class="stage-body outputs">
+              <div class="output output-community">
+                <h3><span class="out-edition">Community</span> <span class="out-name">Quickscan</span></h3>
+                <ul>
+                  <li>Observed ingest</li>
+                  <li>Datasets and candidates</li>
+                  <li>Top candidate preview</li>
+                  <li>Potential review volume</li>
+                </ul>
+              </div>
+              <div class="output output-pro">
+                <h3><span class="out-edition">Pro</span> <span class="out-name">Full Audit</span></h3>
+                <ul>
+                  <li>Full inventory</li>
+                  <li>Evidence</li>
+                  <li>Explanations</li>
+                  <li>Recommendations</li>
+                  <li>Risk and methodology</li>
+                  <li>HTML + Markdown reports</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="arch-foot">
+          <p class="arch-claim">Community discovers the problem. Pro explains the problem.</p>
+          <p class="arch-secure">Your Splunk data stays with you.</p>
+        </div>
+      </div>
+      <p class="muted">Findings are candidates for human review. Log Spend Auditor does not change Splunk configuration, delete data or disable indexes; you decide what action to take.</p>
+    </div>
+  </section>
+
   <section class="section" id="compare" aria-labelledby="compare-title">
     <div class="wrap">
       <p class="eyebrow">Community vs Pro</p>
