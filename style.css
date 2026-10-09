@@ -41,6 +41,18 @@ h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.15; margin: 0 0 18px; let
 .lead { color: var(--muted); font-size: 19px; margin: 0 0 28px; max-width: 60ch; }
 .btn { display: inline-block; background: var(--accent); color: var(--accent-ink); font-weight: 700; text-decoration: none; padding: 13px 22px; border-radius: 8px; border: 1px solid var(--accent); }
 .btn:hover { background: #7ff0bc; color: var(--accent-ink); }
+.btn-alt { background: transparent; color: var(--accent); }
+.btn-alt:hover { background: #12261e; color: #7ff0bc; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; }
+.price-note { color: var(--text); font-size: 15px; margin: 0 0 6px; }
+.avail { color: var(--muted); font-size: 14px; margin: 0; }
+.price { font: 700 22px var(--mono); margin: 0 0 14px; }
+.price .was { display: block; font-size: 14px; font-weight: 400; color: var(--muted); }
+.edition-cta { margin: 22px 0 0; }
+.upgrade { margin-top: 36px; }
+.prose-line { max-width: 72ch; color: #cdd9e5; margin: 0; }
+.status { font: 12px var(--mono); color: var(--muted); margin-left: 8px; }
+.status.ok { color: var(--accent); }
 
 .terminal { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; min-width: 0; }
 .terminal .bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; border-bottom: 1px solid var(--border); font: 12px var(--mono); color: var(--muted); }

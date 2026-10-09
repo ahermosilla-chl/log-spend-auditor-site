@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Log Spend Auditor — Local-first Splunk ingest cost analysis</title>
-<meta name="description" content="Log Spend Auditor is a local-first desktop CLI for Splunk teams that analyzes aggregated ingest and usage metadata to identify high-cost datasets and optimization opportunities.">
+<title>Log Spend Auditor — Local-first Splunk ingest cost analysis for Linux</title>
+<meta name="description" content="Local-first Splunk ingest cost analysis for Linux. Run a free Quickscan on your own machine to find ingest optimization candidates; upgrade to Pro for the full audit. No Splunk events leave your environment.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Log Spend Auditor — Local-first Splunk ingest cost analysis">
+<meta property="og:title" content="Log Spend Auditor — Local-first Splunk ingest cost analysis for Linux">
 <meta property="og:description" content="Find where your Splunk ingest budget is going — without sending your data anywhere.">
 <meta name="theme-color" content="#0b0f14">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -22,6 +22,7 @@
         <li><a href="#problem">Problem</a></li>
         <li><a href="#how-it-works">How it works</a></li>
         <li><a href="#features">Community vs Pro</a></li>
+        <li><a href="#platforms">Platforms</a></li>
         <li><a href="#local-first">Local-first</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -36,7 +37,12 @@
         <p class="eyebrow">Log Spend Auditor</p>
         <h1>Find where your Splunk ingest budget is going — without sending your data anywhere.</h1>
         <p class="lead">Log Spend Auditor is a local-first desktop CLI for Splunk teams that analyzes aggregated ingest and usage metadata to identify high-cost datasets and optimization opportunities.</p>
-        <p><a class="btn" href="#features">View product features</a></p>
+        <div class="cta">
+          <a class="btn" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
+          <a class="btn btn-alt" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69 Launch Price</a>
+        </div>
+        <p class="price-note">Regular price $99 · One-time purchase. Launch price limited to the first 10 redemptions.</p>
+        <p class="avail">Available now for Linux x86_64. macOS and Windows: coming later.</p>
       </div>
       <figure class="terminal">
         <div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>terminal</span></div>
@@ -86,7 +92,9 @@ Highest-impact candidates:
         <div class="edition">
           <span class="tag">Community</span>
           <p class="tagline">Discover where to look.</p>
+          <p class="price">Free</p>
           <ul class="check">
+            <li>No license required</li>
             <li>Full synthetic demo</li>
             <li>Real-environment Quickscan</li>
             <li>Observed ingest</li>
@@ -94,11 +102,16 @@ Highest-impact candidates:
             <li>Potential optimization estimate</li>
             <li>Top candidate preview</li>
           </ul>
+          <p class="edition-cta"><a class="btn" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a></p>
         </div>
         <div class="edition pro">
           <span class="tag">Pro</span>
           <p class="tagline">Understand why, and what to review.</p>
+          <p class="price">$69 launch price <span class="was">$99 regular price</span></p>
           <ul class="check">
+            <li>One-time purchase</li>
+            <li>1 active installation</li>
+            <li>License does not expire</li>
             <li>Full audit</li>
             <li>Complete dataset inventory</li>
             <li>Evidence and explanations</li>
@@ -106,8 +119,13 @@ Highest-impact candidates:
             <li>Recommendations</li>
             <li>HTML + Markdown reports</li>
           </ul>
+          <p class="edition-cta"><a class="btn" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69 Launch Price</a></p>
         </div>
       </div>
+      <p class="note">Launch price: first 10 redemptions only; the regular price is $99. Findings are candidates for human review; no savings are guaranteed.</p>
+
+      <h3 class="upgrade">One application, no reinstall</h3>
+      <p class="prose-line">Start free with Community. If Pro is useful for your environment, purchase a Pro license and activate it in the same application — no reinstall required. Community and Pro are the same Linux application.</p>
     </div>
   </section>
 
@@ -131,11 +149,11 @@ Highest-impact candidates:
     <div class="wrap">
       <h2>Platforms</h2>
       <ul class="platforms">
-        <li>macOS</li>
-        <li>Windows</li>
-        <li>Linux</li>
+        <li><strong>Linux x86_64</strong> <span class="status ok">Available now</span></li>
+        <li><strong>macOS</strong> <span class="status">Coming later</span></li>
+        <li><strong>Windows</strong> <span class="status">Coming later</span></li>
       </ul>
-      <p>Standalone builds are prepared for macOS, Windows and Linux.</p>
+      <p>Linux x86_64. Built and tested on Ubuntu 22.04 LTS. Requires glibc 2.35 or newer.</p>
     </div>
   </section>
 
