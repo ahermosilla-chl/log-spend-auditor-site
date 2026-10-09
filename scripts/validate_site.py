@@ -182,6 +182,40 @@ for page in PAGES:
 if (ROOT / "style.css").exists():
     err("old style.css still present")
 
+# production security headers (Cloudflare Pages _headers)
+headers_file = ROOT / "_headers"
+if not headers_file.is_file():
+    err("_headers is missing")
+else:
+    htxt = headers_file.read_text(encoding="utf-8")
+    for required in (
+        "X-Content-Type-Options: nosniff",
+        "X-Frame-Options: DENY",
+        "Referrer-Policy: strict-origin-when-cross-origin",
+        "Permissions-Policy:",
+        "Content-Security-Policy:",
+        "Strict-Transport-Security:",
+    ):
+        if required not in htxt:
+            err(f"_headers: missing {required!r}")
+    if "X-XSS-Protection" in htxt:
+        err("_headers: X-XSS-Protection must not be set")
+    csp = re.search(r"Content-Security-Policy:\s*(.+)", htxt)
+    if csp:
+        for directive in ("default-src 'self'", "script-src 'none'", "object-src 'none'", "frame-ancestors 'none'"):
+            if directive not in csp.group(1):
+                err(f"_headers: CSP missing {directive!r}")
+        if re.search(r"unsafe-inline|unsafe-eval|\*|https?://", csp.group(1)):
+            err("_headers: CSP must not allow inline/eval/wildcard/external sources")
+    hsts = re.search(r"Strict-Transport-Security:\s*(.+)", htxt)
+    if hsts and re.search(r"includeSubDomains|preload", hsts.group(1), re.I):
+        err("_headers: HSTS must not use includeSubDomains/preload yet")
+    # the CSP forbids inline styles/scripts, so pages must not use them
+    for page in PAGES:
+        raw_page = parsed[page][0]
+        if re.search(r"<style|<script|\sstyle=", raw_page, re.I):
+            err(f"{page}: inline style/script is blocked by the CSP")
+
 # secrets in any tracked file
 for f in ROOT.rglob("*"):
     if f.is_file() and ".git" not in f.parts and f.suffix in {".html", ".css", ".txt", ".yml", ".py", ".svg"}:
