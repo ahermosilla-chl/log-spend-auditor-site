@@ -169,6 +169,12 @@ css = (ROOT / "site-v2.css").read_text(encoding="utf-8")
 if re.search(r"https?://|@import", css):
     err("site-v2.css: external reference")
 
+# ambient animation must be CSS-only and disabled under prefers-reduced-motion
+if "@keyframes" in css:
+    m = re.search(r"@media \(prefers-reduced-motion: reduce\)\s*\{.*", css, re.S)
+    if not m or "animation: none" not in m.group(0):
+        err("site-v2.css: animations are not disabled under prefers-reduced-motion")
+
 # every page must load the current stylesheet (stale cached CSS broke production once)
 for page in PAGES:
     if 'href="' + ("../" if "/" in page else "") + 'site-v2.css"' not in parsed[page][0]:
