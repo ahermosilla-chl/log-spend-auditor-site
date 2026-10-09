@@ -33,7 +33,7 @@ jobs:
       - name: Assemble the published files
         run: |
           mkdir _site
-          cp -r index.html privacy terms style.css favicon.svg robots.txt _site/
+          cp -r index.html privacy terms style.css favicon.svg robots.txt sitemap.xml _site/
 
       - uses: actions/configure-pages@v5
 

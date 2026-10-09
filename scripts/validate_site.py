@@ -7,6 +7,11 @@ ROOT = Path(__file__).resolve().parent.parent
 COMMUNITY = "https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934"
 PRO = "https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69"
 PAGES = ["index.html", "privacy/index.html", "terms/index.html"]
+CANONICAL = {
+    "index.html": "https://logspendauditor.com/",
+    "privacy/index.html": "https://logspendauditor.com/privacy/",
+    "terms/index.html": "https://logspendauditor.com/terms/",
+}
 VOID = {"meta", "link", "br", "img", "hr", "input"}
 errors: list[str] = []
 
@@ -55,14 +60,39 @@ for page in PAGES:
     for tag, a in p.tags:
         if tag in ("script", "iframe", "object", "embed", "form", "input"):
             err(f"{page}: forbidden <{tag}>")
-        if tag in ("img", "link", "source", "video", "audio") :
+        if tag in ("img", "link", "source", "video", "audio", "use"):
             ref = a.get("src") or a.get("href") or ""
-            if re.match(r"(https?:)?//", ref):
+            if tag == "link" and a.get("rel") == "canonical":
+                if ref != CANONICAL[page]:
+                    err(f"{page}: canonical is {ref!r}, expected {CANONICAL[page]!r}")
+            elif re.match(r"(https?:)?//", ref):
                 err(f"{page}: external resource {ref}")
+            elif tag == "use" and not ref.startswith("#"):
+                err(f"{page}: <use> must reference an inline symbol, got {ref}")
         if any(k.startswith("on") for k in a):
             err(f"{page}: inline event handler")
     if re.search(r"@import|url\(\s*['\"]?https?:", raw):
         err(f"{page}: external CSS import")
+
+    if not any(t == "link" and a.get("rel") == "canonical" for t, a in p.tags):
+        err(f"{page}: missing canonical link")
+    if f'content="{CANONICAL[page]}"' not in raw:
+        err(f"{page}: og:url does not match canonical")
+    if "github.io" in raw:
+        err(f"{page}: github.io must not appear")
+
+    # heading hierarchy: exactly one h1, no skipped levels
+    levels = [int(t[1]) for t, _a in p.tags if re.fullmatch(r"h[1-6]", t)]
+    if levels.count(1) != 1:
+        err(f"{page}: expected exactly one h1, found {levels.count(1)}")
+    for prev, cur in zip(levels, levels[1:]):
+        if cur > prev + 1:
+            err(f"{page}: heading level skips from h{prev} to h{cur}")
+    for tag, a in p.tags:
+        if tag == "svg" and a.get("aria-hidden") != "true" and "role" not in a and a.get("width") != "0":
+            err(f"{page}: <svg> without aria-hidden or role")
+        if tag == "img" and "alt" not in a:
+            err(f"{page}: <img> without alt")
 
     # links
     for a in p.links:
@@ -120,9 +150,11 @@ raw, p = parsed["index.html"]
 hrefs = [a.get("href") for a in p.links]
 for label, url in (("Download Community — Free", COMMUNITY), ("Buy Pro — $69 Launch Price", PRO)):
     found = re.findall(r'<a[^>]*href="([^"]+)"[^>]*>\s*' + re.escape(label) + r"\s*</a>", raw)
-    if len(found) < 2 or any(f != url for f in found):
-        err(f"CTA {label!r}: expected >=2 links, all exactly {url}; got {found}")
-for k in ("Regular price $99", "One-time purchase", "Linux x86_64. Built and tested on Ubuntu 22.04 LTS. Requires glibc 2.35 or newer.",
+    if len(found) < 3 or any(f != url for f in found):
+        err(f"CTA {label!r}: expected >=3 links, all exactly {url}; got {found}")
+for k in ("Regular price $99", "One-time purchase", "Built and tested on Ubuntu 22.04 LTS", "Requires glibc 2.35 or newer",
+          "Launch price limited to the first 10 redemptions.", "No license required", "1 active installation", "License does not expire",
+          "Start with Community. Upgrade to Pro in the same application — no reinstall required.",
           "Available now", "Coming later", "no reinstall required", "Community discovers the problem. Pro explains the problem.",
           "Find where your Splunk ingest budget is going — without sending your data anywhere."):
     if k not in raw:
