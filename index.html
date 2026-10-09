@@ -12,41 +12,25 @@
 <meta property="og:title" content="Log Spend Auditor — Local-first Splunk ingest cost analysis for Linux">
 <meta property="og:description" content="Find where your Splunk ingest budget is going — without sending your data anywhere. Free Community Quickscan; Pro for the full audit.">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#07090d">
+<meta name="theme-color" content="#0b0e13">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="site-v2.css">
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></symbol>
-    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/><path d="M3 21 21 3"/></symbol>
-    <symbol id="i-server" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.7-4 3-9 3s-9-1.3-9-3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></symbol>
-    <symbol id="i-key" viewBox="0 0 24 24"><path d="m21 2-2 2m-7.6 7.6a5.5 5.5 0 1 1-7.8 7.8 5.5 5.5 0 0 1 7.8-7.8zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></symbol>
-    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M18 10h-1.3A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
-    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></symbol>
-    <symbol id="i-term" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6M12 19h8"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 6-7"/></symbol>
-  </defs>
-</svg>
-
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="wrap bar">
-    <a class="brand" href="./" aria-label="Log Spend Auditor — home"><span class="mark" aria-hidden="true">&gt;_</span><span>Log Spend Auditor</span></a>
+    <a class="brand" href="./" aria-label="Log Spend Auditor — home"><span class="mark" aria-hidden="true">&gt;_</span><span class="brand-name">Log Spend Auditor</span></a>
     <nav aria-label="Primary">
       <ul>
+        <li><a href="#product">Product</a></li>
         <li><a href="#how-it-works">How it works</a></li>
         <li><a href="#compare">Community vs Pro</a></li>
         <li><a href="#security">Security</a></li>
-        <li><a href="#platforms">Platforms</a></li>
       </ul>
     </nav>
-    <a class="btn btn-sm nav-cta" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Free</a>
+    <a class="btn btn-primary btn-nav" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Free</a>
   </div>
 </header>
 
@@ -55,105 +39,99 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="badge"><span class="dot" aria-hidden="true"></span>Splunk ingest cost analysis · Linux x86_64</p>
+        <p class="eyebrow">Local-first Splunk ingest analysis</p>
         <h1 id="hero-title">Find where your Splunk ingest budget is going — without sending your data anywhere.</h1>
-        <p class="lead">Log Spend Auditor is a local-first command-line tool for Splunk teams. It analyzes aggregated ingest and usage metadata on your own machine to show which datasets are worth a closer look.</p>
+        <p class="lead">Log Spend Auditor analyzes aggregated ingest and usage metadata on your own machine and shows which Splunk datasets deserve a closer look.</p>
         <div class="cta">
           <a class="btn btn-primary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
-          <a class="btn btn-ghost" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69 Launch Price</a>
+          <a class="btn btn-secondary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
         </div>
-        <p class="price-note"><strong>Regular price $99 · One-time purchase</strong><span>Launch price limited to the first 10 redemptions.</span></p>
-        <ul class="trust" aria-label="Key properties">
-          <li>Local-first</li>
+        <p class="price-line">Regular $99 · One-time purchase · License does not expire</p>
+        <p class="price-fine">Launch price limited to the first 10 redemptions.</p>
+        <ul class="chips" aria-label="Key properties">
+          <li>Runs locally</li>
           <li>Read-only</li>
           <li>No telemetry</li>
         </ul>
-        <p class="avail"><span class="pill ok">Available now</span> Linux x86_64 &nbsp;·&nbsp; macOS and Windows coming later</p>
       </div>
 
-      <figure class="terminal" aria-labelledby="term-cap">
-        <div class="term-bar" aria-hidden="true">
-          <span class="dots"><i></i><i></i><i></i></span>
-          <span class="term-title">splunk-spend-auditor — quickscan</span>
-          <span class="term-tag">synthetic demo</span>
+      <figure class="result" aria-labelledby="result-cap">
+        <div class="result-head">
+          <span class="result-title">Quickscan</span>
+          <span class="result-tag">synthetic demo data</span>
         </div>
-<pre tabindex="0" aria-label="Example Quickscan output on synthetic sample data"><span class="p">$</span> <span class="cmd">splunk-spend-auditor</span> quickscan \
-    <span class="opt">--from-csv</span> sample-data/case_mixed
+        <p class="result-cmd"><span class="prompt" aria-hidden="true">$</span> splunk-spend-auditor quickscan --from-csv sample-data/case_mixed</p>
 
-<span class="h">Observed ingest:</span>   <span class="num">199.9 GB/day</span>
-<span class="h">Datasets analyzed:</span> <span class="num">12</span>
+        <dl class="stats">
+          <div><dt>Observed ingest</dt><dd>199.9 <small>GB/day</small></dd></div>
+          <div><dt>Datasets</dt><dd>12 <small>analyzed</small></dd></div>
+          <div><dt>Potential review</dt><dd>77.3 <small>GB/day</small></dd></div>
+        </dl>
 
-<span class="bad">Possible waste:</span> 2 datasets, <span class="num">67.9 GB/day</span>
-<span class="rev">Review</span> <span class="dim">(manual validation recommended):</span>
-              2 datasets, <span class="num">9.4 GB/day</span>
-
-<span class="h">Highest-impact candidates:</span>
-<span class="row"><span class="dim">-</span><span class="n">app:verbose_debug</span><span class="bad">POSSIBLE_WASTE</span><span class="num g">38.0 GB/day</span></span><span class="row"><span class="dim">-</span><span class="n">windows:eventlog_raw</span><span class="bad">POSSIBLE_WASTE</span><span class="num g">29.9 GB/day</span></span><span class="row"><span class="dim">-</span><span class="n">integration:partner_feed</span><span class="rev">REVIEW</span><span class="num g">9.1 GB/day</span></span></pre>
-        <figcaption id="term-cap">Abridged Quickscan output on the synthetic sample data bundled with the tool. Not customer data. Candidates are for human review, not instructions to delete data.</figcaption>
+        <p class="result-sub">Highest-impact candidates</p>
+        <ul class="cands">
+          <li>
+            <span class="cand-name">app:verbose_debug</span>
+            <span class="cand-val">38.0 <small>GB/day</small></span>
+            <span class="cand-status st-waste">POSSIBLE_WASTE</span>
+            <span class="cand-bar" aria-hidden="true"><i class="w100"></i></span>
+          </li>
+          <li>
+            <span class="cand-name">windows:eventlog_raw</span>
+            <span class="cand-val">29.9 <small>GB/day</small></span>
+            <span class="cand-status st-waste">POSSIBLE_WASTE</span>
+            <span class="cand-bar" aria-hidden="true"><i class="w79"></i></span>
+          </li>
+          <li>
+            <span class="cand-name">integration:partner_feed</span>
+            <span class="cand-val">9.1 <small>GB/day</small></span>
+            <span class="cand-status st-review">REVIEW</span>
+            <span class="cand-bar" aria-hidden="true"><i class="w24"></i></span>
+          </li>
+        </ul>
+        <figcaption id="result-cap">Abridged Quickscan result on the synthetic sample data bundled with the tool. Not customer data. Candidates are for human review.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="section" id="problem" aria-labelledby="problem-title">
-    <div class="wrap">
-      <div class="split">
-        <div>
-          <p class="eyebrow">The problem</p>
-          <h2 id="problem-title">Ingest grows faster than its value is reviewed.</h2>
-          <p class="section-lead">Splunk environments accumulate datasets whose operational value may no longer justify their cost. Before anyone changes retention or onboarding, they need evidence.</p>
-          <ul class="points">
-            <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg><span><strong>Ingest tends to climb.</strong> New sources are onboarded; old ones are rarely revisited.</span></li>
-            <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><span><strong>Evidence comes first.</strong> Usage and ingest signals show where a conversation is worth having.</span></li>
-            <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><span><strong>Humans decide.</strong> Results are candidates for review. The tool never tells you to delete data and does not promise savings.</span></li>
-          </ul>
-        </div>
-        <figure class="viz">
-          <svg viewBox="0 0 440 240" role="img" aria-labelledby="viz-t viz-d">
-            <title id="viz-t">Illustration: ingest rising while reviewed value stays flat</title>
-            <desc id="viz-d">Conceptual illustration, not measured data. A rising line labeled ingest diverges from a flatter line labeled reviewed value.</desc>
-            <g class="grid-lines"><path d="M40 40H420M40 100H420M40 160H420M40 210H420"/></g>
-            <path class="area" d="M40 190 C120 180 160 170 220 140 S350 70 420 36 V210 H40 Z"/>
-            <path class="line-ingest" d="M40 190 C120 180 160 170 220 140 S350 70 420 36"/>
-            <path class="line-value" d="M40 190 C140 184 240 176 420 168"/>
-            <circle class="pt" cx="420" cy="36" r="4"/><circle class="pt2" cx="420" cy="168" r="4"/>
-            <text x="300" y="52" class="lbl a">Ingest</text>
-            <text x="300" y="190" class="lbl b">Reviewed value</text>
-            <text x="40" y="232" class="lbl c">time →</text>
-          </svg>
-          <figcaption>Conceptual illustration, not measured data.</figcaption>
-        </figure>
+  <section class="section" id="product" aria-labelledby="product-title">
+    <div class="wrap two-col">
+      <div>
+        <p class="eyebrow">The problem</p>
+        <h2 id="product-title">Ingest grows. Its value doesn't always keep up.</h2>
+        <p class="body-lg">Splunk environments accumulate datasets whose operational value may no longer justify their cost. Log Spend Auditor helps teams decide where investigation is worthwhile.</p>
+        <p class="muted">Results are recommendations for human review. The tool never tells you to delete data, and it does not promise savings.</p>
       </div>
+      <ul class="statements">
+        <li><h3>Ingest grows</h3><p>New sources accumulate over time.</p></li>
+        <li><h3>Usage changes</h3><p>Historical sources may no longer justify their cost.</p></li>
+        <li><h3>Evidence first</h3><p>Review data before making retention or onboarding decisions.</p></li>
+      </ul>
     </div>
   </section>
 
-  <section class="section alt" id="how-it-works" aria-labelledby="how-title">
+  <section class="section section-alt" id="how-it-works" aria-labelledby="how-title">
     <div class="wrap">
       <p class="eyebrow">How it works</p>
-      <h2 id="how-title">From connection to candidates in three steps.</h2>
-      <ol class="steps">
+      <h2 id="how-title">Three steps from connection to candidates.</h2>
+      <ol class="timeline">
         <li>
-          <span class="num-badge" aria-hidden="true">1</span>
-          <svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-server"/></svg>
-          <h3>Connect or export</h3>
-          <p>Use read-only Splunk REST access or CSV input.</p>
-          <span class="chip">REST · CSV</span>
+          <span class="step-no">01</span>
+          <h3>Connect</h3>
+          <p>Read-only Splunk REST or CSV.</p>
         </li>
         <li>
-          <span class="num-badge" aria-hidden="true">2</span>
-          <svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-term"/></svg>
+          <span class="step-no">02</span>
           <h3>Analyze locally</h3>
-          <p>Log Spend Auditor evaluates ingest and usage metadata on your machine.</p>
-          <span class="chip">runs on your machine</span>
+          <p>Metadata stays on your machine.</p>
         </li>
         <li>
-          <span class="num-badge" aria-hidden="true">3</span>
-          <svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-file"/></svg>
-          <h3>Review opportunities</h3>
-          <p>Community identifies where to look; Pro provides deeper evidence, explanations and reports.</p>
-          <span class="chip">Quickscan · Audit</span>
+          <span class="step-no">03</span>
+          <h3>Review</h3>
+          <p>Quickscan or full Pro audit.</p>
         </li>
       </ol>
-      <p class="note">Works with real Splunk data through the REST API or CSV exports. Designed for Splunk teams.</p>
+      <p class="muted">Works with real Splunk data through the REST API or CSV exports. Designed for Splunk teams.</p>
     </div>
   </section>
 
@@ -161,15 +139,16 @@
     <div class="wrap">
       <p class="eyebrow">Community vs Pro</p>
       <h2 id="compare-title">Community discovers the problem. Pro explains the problem.</h2>
-      <p class="section-lead">Both editions are the same Linux application. Start with Community. Upgrade to Pro in the same application — no reinstall required.</p>
+      <p class="body-lg narrow">Both editions are the same Linux application. Start with Community. Upgrade to Pro in the same application — no reinstall required.</p>
 
       <div class="editions">
         <article class="edition" aria-labelledby="ed-community">
-          <header>
-            <h3 id="ed-community">Community</h3>
-            <p class="tagline">Discover where to look.</p>
-            <p class="price"><span class="amount">Free</span><span class="sub">No license required</span></p>
-          </header>
+          <div class="ed-top"><h3 id="ed-community" class="ed-label">Community</h3></div>
+          <div class="ed-price">
+            <p class="amount">Free</p>
+            <p class="amount-sub">No license required</p>
+          </div>
+          <p class="ed-tagline">Discover where to look.</p>
           <ul class="check">
             <li>Full synthetic demo</li>
             <li>Real-environment Quickscan</li>
@@ -178,17 +157,21 @@
             <li>Potential optimization estimate</li>
             <li>Top candidate preview</li>
           </ul>
-          <a class="btn btn-ghost btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
+          <a class="btn btn-secondary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
         </article>
 
-        <article class="edition pro" aria-labelledby="ed-pro">
-          <span class="ribbon">Launch price</span>
-          <header>
-            <h3 id="ed-pro">Pro</h3>
-            <p class="tagline">Understand why, and what to review.</p>
-            <p class="price"><span class="amount">$69</span><span class="sub">launch · <s>$99</s> regular price</span></p>
-          </header>
-          <ul class="meta-list">
+        <article class="edition edition-pro" aria-labelledby="ed-pro">
+          <div class="ed-top">
+            <h3 id="ed-pro" class="ed-label">Pro</h3>
+            <span class="badge-launch">Launch</span>
+          </div>
+          <div class="ed-price">
+            <p class="amount">$69</p>
+            <p class="amount-sub">launch price</p>
+            <p class="amount-was">$99 regular</p>
+          </div>
+          <p class="ed-tagline">Understand why, and what to review.</p>
+          <ul class="terms">
             <li>One-time purchase</li>
             <li>1 active installation</li>
             <li>License does not expire</li>
@@ -201,71 +184,49 @@
             <li>Recommendations</li>
             <li>HTML + Markdown reports</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69 Launch Price</a>
+          <a class="btn btn-primary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
           <p class="fine">Regular price $99 · One-time purchase. Launch price limited to the first 10 redemptions.</p>
         </article>
       </div>
-      <p class="note center">Start with Community. Upgrade to Pro in the same application — no reinstall required. Findings are recommendations for human review; no savings are guaranteed.</p>
+      <p class="muted center">Start with Community. Upgrade to Pro in the same application — no reinstall required. Findings are recommendations for human review; no savings are guaranteed.</p>
     </div>
   </section>
 
-  <section class="section alt" id="security" aria-labelledby="security-title">
+  <section class="section section-alt" id="security" aria-labelledby="security-title">
     <div class="wrap">
       <p class="eyebrow">Security and privacy</p>
-      <h2 id="security-title">Local-first by design.</h2>
-      <p class="section-lead">Read-only analysis that runs on your machine. No SaaS backend required.</p>
-
-      <div class="boundary" role="group" aria-label="Where data goes">
-        <div class="zone zone-local">
-          <p class="zone-title">Your machine</p>
-          <div class="flow">
-            <span class="node"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-server"/></svg>Splunk (read-only) or CSV</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="node node-main"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-term"/></svg>Log Spend Auditor</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="node"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-file"/></svg>Local reports</span>
-          </div>
-          <p class="zone-note">Analysis data stays here.</p>
-        </div>
-        <div class="zone zone-license">
-          <p class="zone-title">Licensing only</p>
-          <span class="node node-dash"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cloud"/></svg>Lemon Squeezy</span>
-          <p class="zone-note">Pro license activation and periodic revalidation only.</p>
-        </div>
-      </div>
-
-      <ul class="cards">
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-lock"/></svg><h3>Runs locally</h3><p>Log Spend Auditor runs on your machine. The analysis does not need a SaaS backend.</p></li>
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-eye"/></svg><h3>Read-only workflow</h3><p>It does not modify Splunk configuration or data.</p></li>
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-pulse"/></svg><h3>No telemetry</h3><p>The product collects no usage telemetry or analytics.</p></li>
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><h3>No raw Splunk events sent to us</h3><p>The analysis uses aggregated ingest and usage metadata. No raw Splunk events are sent to Log Spend Auditor servers.</p></li>
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-key"/></svg><h3>Credentials remain local</h3><p>Splunk credentials are read locally and are not uploaded to us.</p></li>
-        <li class="card"><svg class="ic ic-lg" aria-hidden="true" focusable="false"><use href="#i-cloud"/></svg><h3>Licensing is separate</h3><p>Lemon Squeezy is contacted only for Pro license activation, deactivation and periodic revalidation. No Splunk customer data is sent to it.</p></li>
+      <h2 id="security-title">Your Splunk data stays in your environment.</h2>
+      <p class="body-lg narrow">The analysis uses aggregated ingest and usage metadata. No raw Splunk events are sent to Log Spend Auditor servers.</p>
+      <ul class="facts">
+        <li><h3>Runs locally</h3><p>The analysis runs on your machine. No SaaS backend is required.</p></li>
+        <li><h3>Read-only access</h3><p>It does not modify Splunk configuration or data.</p></li>
+        <li><h3>No telemetry</h3><p>The product collects no usage telemetry or analytics.</p></li>
+        <li><h3>Credentials stay local</h3><p>Splunk credentials are read locally and are not uploaded to us.</p></li>
+        <li><h3>Reports stay local</h3><p>Reports are generated and stored on your machine.</p></li>
+        <li><h3>Licensing only contacts Lemon Squeezy</h3><p>Used only for Pro license activation, deactivation and periodic revalidation. No Splunk customer data is sent to it.</p></li>
       </ul>
-      <p class="note">The demo and the Community Quickscan do not contact Lemon Squeezy. Details are in the <a href="privacy/">Privacy</a> page.</p>
+      <p class="muted">The demo and the Community Quickscan do not contact Lemon Squeezy. Details are in the <a href="privacy/">Privacy</a> page.</p>
     </div>
   </section>
 
   <section class="section" id="platforms" aria-labelledby="platforms-title">
     <div class="wrap">
       <p class="eyebrow">Platforms</p>
-      <h2 id="platforms-title">Linux x86_64 today. macOS and Windows later.</h2>
-      <ul class="platform-grid">
-        <li class="platform live">
+      <h2 id="platforms-title">Available now for Linux.</h2>
+      <ul class="platforms">
+        <li class="plat-live">
           <h3>Linux x86_64</h3>
-          <span class="pill ok">Available now</span>
-          <p>Built and tested on Ubuntu 22.04 LTS.</p>
-          <p>Requires glibc 2.35 or newer.</p>
+          <p class="plat-status"><span class="status-ok">Available now</span></p>
+          <p class="plat-detail">Built and tested on Ubuntu 22.04 LTS</p>
+          <p class="plat-detail">Requires glibc 2.35 or newer</p>
         </li>
-        <li class="platform">
+        <li>
           <h3>macOS</h3>
-          <span class="pill">Coming later</span>
-          <p>Not available yet.</p>
+          <p class="plat-status"><span class="status-later">Coming later</span></p>
         </li>
-        <li class="platform">
+        <li>
           <h3>Windows</h3>
-          <span class="pill">Coming later</span>
-          <p>Not available yet.</p>
+          <p class="plat-status"><span class="status-later">Coming later</span></p>
         </li>
       </ul>
     </div>
@@ -273,14 +234,14 @@
 
   <section class="final" id="get-started" aria-labelledby="final-title">
     <div class="wrap final-inner">
-      <h2 id="final-title">See where your Splunk ingest budget is going.</h2>
-      <p class="section-lead">Start with Community for free. Your Splunk data stays on your machine.</p>
+      <h2 id="final-title">Start with Community. Upgrade only if you need the full audit.</h2>
+      <p class="body-lg">Run a Quickscan on your own machine. Your Splunk data stays there.</p>
       <div class="cta cta-center">
         <a class="btn btn-primary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
-        <a class="btn btn-ghost" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69 Launch Price</a>
+        <a class="btn btn-secondary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
       </div>
-      <p class="price-note center"><strong>Regular price $99 · One-time purchase</strong><span>Launch price limited to the first 10 redemptions.</span></p>
-      <p class="fine center">Local-first · Read-only · No telemetry · No raw Splunk events sent to us</p>
+      <p class="price-line center">Regular $99 · One-time purchase · License does not expire</p>
+      <p class="price-fine center">Launch price limited to the first 10 redemptions.</p>
     </div>
   </section>
 </main>

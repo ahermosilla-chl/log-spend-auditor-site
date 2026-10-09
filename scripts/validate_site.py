@@ -148,7 +148,7 @@ for page in PAGES:
 # checkout CTAs on landing
 raw, p = parsed["index.html"]
 hrefs = [a.get("href") for a in p.links]
-for label, url in (("Download Community — Free", COMMUNITY), ("Buy Pro — $69 Launch Price", PRO)):
+for label, url in (("Download Community — Free", COMMUNITY), ("Buy Pro — $69", PRO)):
     found = re.findall(r'<a[^>]*href="([^"]+)"[^>]*>\s*' + re.escape(label) + r"\s*</a>", raw)
     if len(found) < 3 or any(f != url for f in found):
         err(f"CTA {label!r}: expected >=3 links, all exactly {url}; got {found}")
@@ -165,9 +165,16 @@ if re.search(r"(?i)subscri", raw):
     err("subscription mentioned")
 
 # css has no external references
-css = (ROOT / "style.css").read_text(encoding="utf-8")
+css = (ROOT / "site-v2.css").read_text(encoding="utf-8")
 if re.search(r"https?://|@import", css):
-    err("style.css: external reference")
+    err("site-v2.css: external reference")
+
+# every page must load the current stylesheet (stale cached CSS broke production once)
+for page in PAGES:
+    if 'href="' + ("../" if "/" in page else "") + 'site-v2.css"' not in parsed[page][0]:
+        err(f"{page}: does not link site-v2.css")
+if (ROOT / "style.css").exists():
+    err("old style.css still present")
 
 # secrets in any tracked file
 for f in ROOT.rglob("*"):
