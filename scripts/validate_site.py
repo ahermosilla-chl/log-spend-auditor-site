@@ -131,7 +131,7 @@ for page in PAGES:
         (r"sales (are )?(coming|will)|when commercial sales|go live|coming soon", "old 'sales later' wording"),
         (r"subscription", "subscription wording"),
         (r"prepared for macOS", "old platform statement"),
-        (r"\$(?!69\b|99\b)\d+", "unexpected price"),
+        (r"\$(?!69\b|99\b|100[,.]000\b|10[,.]000\b)\d+", "unexpected price"),
         (r"(?i)download[^<]{0,40}(windows|macos)|buy[^<]{0,40}(windows|macos)", "Windows/macOS CTA"),
         (r"(?i)google-analytics|gtag|plausible|fonts\.googleapis", "tracking/external font"),
         (r"(?i)(variant|product)[ _-]?id|\b\d{6,7}\b", "possible product/variant id"),
@@ -164,7 +164,7 @@ for k in ("Regular price $99", "One-time purchase", "Built and tested on Ubuntu 
           "Launch price limited to the first 10 redemptions.", "No license required", "1 active installation", "License does not expire",
           "Start with Community. Upgrade to Pro in the same application — no reinstall required.",
           "Available now", "Coming later", "no reinstall required", "Community discovers the problem. Pro explains the problem.",
-          "Find where your Splunk ingest budget is going — without sending your data anywhere."):
+          "Stop paying Splunk for data nobody searches."):
     if k not in raw:
         err(f"index.html: missing copy {k!r}")
 raw_es, p_es = parsed["es/index.html"]
@@ -182,9 +182,9 @@ if re.search(r"(?i)subscri", raw):
     err("subscription mentioned")
 
 # css has no external references
-css = (ROOT / "site-v2.css").read_text(encoding="utf-8")
+css = (ROOT / "site-v3.css").read_text(encoding="utf-8")
 if re.search(r"https?://|@import", css):
-    err("site-v2.css: external reference")
+    err("site-v3.css: external reference")
 if re.search(r"https?://|@import", (ROOT / "sample-report/report.css").read_text(encoding="utf-8")):
     err("sample-report/report.css: external reference")
 for page in PAGES:
@@ -195,7 +195,7 @@ for page in PAGES:
 if "@keyframes" in css:
     m = re.search(r"@media \(prefers-reduced-motion: reduce\)\s*\{.*", css, re.S)
     if not m or "animation: none" not in m.group(0):
-        err("site-v2.css: animations are not disabled under prefers-reduced-motion")
+        err("site-v3.css: animations are not disabled under prefers-reduced-motion")
 
 # every page must load the current stylesheet (stale cached CSS broke production once)
 for page in PAGES:
@@ -203,10 +203,11 @@ for page in PAGES:
         if 'href="report.css"' not in parsed[page][0]:
             err(f"{page}: does not link report.css")
         continue
-    if 'href="' + "../" * page.count("/") + 'site-v2.css"' not in parsed[page][0]:
-        err(f"{page}: does not link site-v2.css")
-if (ROOT / "style.css").exists():
-    err("old style.css still present")
+    if 'href="' + "../" * page.count("/") + 'site-v3.css"' not in parsed[page][0]:
+        err(f"{page}: does not link site-v3.css")
+for old in ("style.css", "site-v2.css"):
+    if (ROOT / old).exists():
+        err(f"old {old} still present")
 
 # production security headers (Cloudflare Pages _headers)
 headers_file = ROOT / "_headers"

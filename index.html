@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Log Spend Auditor — Find the Splunk ingest nobody uses</title>
-<meta name="description" content="Find the Splunk data you pay to ingest but nobody searches. A read-only tool that runs on your own machine: free Quickscan, one-time Pro audit with evidence for every finding.">
+<title>Log Spend Auditor — Stop paying Splunk for data nobody searches</title>
+<meta name="description" content="Find the Splunk data you pay to ingest but nobody searches, alerts on or reports from. Read-only, runs on your machine. Free Quickscan; Pro audit is a one-time $69.">
 <link rel="canonical" href="https://logspendauditor.com/">
 <link rel="alternate" hreflang="en" href="https://logspendauditor.com/">
 <link rel="alternate" hreflang="es" href="https://logspendauditor.com/es/">
@@ -14,12 +14,13 @@
 <meta property="og:site_name" content="Log Spend Auditor">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://logspendauditor.com/">
-<meta property="og:title" content="Log Spend Auditor — Find the Splunk ingest nobody uses">
-<meta property="og:description" content="Find the Splunk data you pay to ingest but nobody searches — without sending your data anywhere.">
+<meta property="og:title" content="Log Spend Auditor — Stop paying Splunk for data nobody searches">
+<meta property="og:description" content="Find the Splunk data you pay to ingest but nobody uses. Read-only, local, one-time price.">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#0b0e13">
+<meta name="theme-color" content="#0f1e3c">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="site-v2.css">
+<link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site-v3.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -32,7 +33,6 @@
         <li><a href="#how-it-works">How it works</a></li>
         <li><a href="#report">The report</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#security">Security</a></li>
         <li><a href="docs/">Docs</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -47,132 +47,104 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">For Splunk admins and platform teams</p>
-        <h1 id="hero-title">Find where your Splunk ingest budget is going — without sending your data anywhere.</h1>
-        <p class="lead">Splunk is priced by how much data you ingest, not by how much of it anyone uses. Log Spend Auditor compares your license usage with real searches, alerts and scheduled reports, and shows which data you are paying for that nobody looks at.</p>
+        <h1 id="hero-title">Stop paying Splunk for data nobody searches.</h1>
+        <p class="lead">Log Spend Auditor crosses your license usage with real searches, alerts and scheduled reports, and marks every index and sourcetype you are paying for that nobody uses. With the evidence to prove it.</p>
         <div class="cta">
           <a class="btn btn-primary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
           <a class="btn btn-secondary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
         </div>
-        <p class="price-line">Regular $99 · One-time purchase · License does not expire</p>
-        <p class="price-fine">Launch price limited to the first 10 redemptions.</p>
-        <ul class="chips" aria-label="Key properties">
+        <p class="price-note">Pro is a one-time $69 (regular $99). Launch price limited to the first 10 redemptions.</p>
+        <ul class="assure" aria-label="Key properties">
           <li>Read-only</li>
           <li>Runs on your machine</li>
-          <li>No credentials needed (CSV mode)</li>
-          <li>No telemetry</li>
+          <li>No credentials needed in CSV mode</li>
         </ul>
       </div>
 
-      <figure class="result" aria-labelledby="result-cap">
-        <div class="result-head">
-          <span class="result-title">Quickscan</span>
-          <span class="result-tag">synthetic demo data</span>
+      <figure class="statement" aria-labelledby="statement-cap">
+        <div class="statement-head">
+          <p class="statement-title">License usage vs. real use</p>
+          <p class="statement-meta">Last 90 days, sample environment</p>
         </div>
-        <p class="result-cmd"><span class="prompt" aria-hidden="true">$</span> splunk-spend-auditor quickscan --from-csv sample-data/case_mixed</p>
-        <dl class="stats">
-          <div><dt>Observed ingest</dt><dd>199.9 <small>GB/day</small></dd></div>
-          <div><dt>Datasets</dt><dd>12 <small>analyzed</small></dd></div>
-          <div><dt>To review</dt><dd>77.3 <small>GB/day</small></dd></div>
-        </dl>
-        <p class="result-sub">Highest-impact candidates</p>
-        <ul class="cands">
-          <li><span class="cand-name">app:verbose_debug</span><span class="cand-val">38.0 <small>GB/day</small></span><span class="cand-status st-waste">POSSIBLE_WASTE</span><span class="cand-bar" aria-hidden="true"><i class="w100"></i></span></li>
-          <li><span class="cand-name">windows:eventlog_raw</span><span class="cand-val">29.9 <small>GB/day</small></span><span class="cand-status st-waste">POSSIBLE_WASTE</span><span class="cand-bar" aria-hidden="true"><i class="w79"></i></span></li>
-          <li><span class="cand-name">integration:partner_feed</span><span class="cand-val">9.1 <small>GB/day</small></span><span class="cand-status st-review">REVIEW</span><span class="cand-bar" aria-hidden="true"><i class="w24"></i></span></li>
-        </ul>
-        <figcaption id="result-cap">Quickscan output on the sample data bundled with the tool. Not customer data.</figcaption>
+        <table>
+          <thead>
+            <tr><th scope="col">Index:sourcetype</th><th scope="col">GB/day</th><th scope="col">Searches</th><th scope="col">Alerts/reports</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="ds"><span class="mk d1">k8s:kube_container_logs</span></td><td>61.0</td><td><span class="mk d1">0</span></td><td>No</td></tr>
+            <tr><td class="ds">web:nginx_access</td><td>42.0</td><td>66</td><td>No</td></tr>
+            <tr><td class="ds"><span class="mk d2">app:debug_verbose</span></td><td>38.0</td><td><span class="mk d2">0</span></td><td>No</td></tr>
+            <tr><td class="ds">cdn:edge_access</td><td>30.0</td><td>36</td><td>Yes</td></tr>
+            <tr><td class="ds"><span class="mk-review">infra:windows_perfmon</span></td><td>24.0</td><td>1</td><td>No</td></tr>
+            <tr><td class="ds">security:ids_alerts<span class="note-protected">protected</span></td><td>9.0</td><td>0</td><td>No</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3">Total ingest per day</td><td>267.2 GB</td></tr>
+            <tr class="tot-waste"><td colspan="3">Paid for, never used (37%)</td><td>99.0 GB</td></tr>
+          </tfoot>
+        </table>
+        <figcaption id="statement-cap">From the sample audit on synthetic data. Highlighted: high volume, zero searches, no alerts or reports. Wavy: worth a review. Security data is never flagged.</figcaption>
       </figure>
     </div>
   </section>
 
   <section class="section" id="problem" aria-labelledby="problem-title">
-    <div class="wrap two-col">
+    <div class="wrap split">
       <div>
-        <p class="eyebrow">The problem</p>
-        <h2 id="problem-title">Ingest keeps growing. Nobody can say what is safe to cut.</h2>
-        <p class="body-lg">Debug logging left on after an incident, a feed onboarded twice, sources for a project that ended last year. Each one adds to the bill, and without proof that nobody uses it, nobody wants to be the one who turns it off.</p>
+        <h2 id="problem-title">Your Splunk bill includes data nobody has looked at in months.</h2>
+        <p class="body-lg">Splunk charges for what goes in. Nobody tracks what comes out. So the license grows every year, and every renewal is a negotiation you go into without evidence.</p>
       </div>
-      <ul class="statements">
-        <li><h3>You pay by volume</h3><p>Your Splunk cost follows the GB/day you ingest, whether anyone searches it or not.</p></li>
-        <li><h3>Usage is invisible</h3><p>License reports show what comes in. They don't show what anyone actually uses.</p></li>
-        <li><h3>Evidence settles it</h3><p>"Zero searches, alerts or scheduled reports in 90 days" is a conversation the data owner can say yes to.</p></li>
+      <div>
+        <ul class="pain-list">
+          <li><span class="what">Debug logging left on after an incident</span><span class="why">Months of verbose logs</span></li>
+          <li><span class="what">The same feed onboarded twice</span><span class="why">Paid for twice</span></li>
+          <li><span class="what">Sources from a project that ended</span><span class="why">Nobody remembers who owns them</span></li>
+          <li><span class="what">Container logs nobody queries</span><span class="why">Often the biggest line</span></li>
+        </ul>
+        <p class="pain-close">Everyone suspects it. Nobody wants to turn something off without proof. Log Spend Auditor gives you the proof.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="math" id="math" aria-labelledby="math-title">
+    <div class="wrap">
+      <h2 id="math-title">The math is short.</h2>
+      <ul class="math-grid">
+        <li><span class="math-fig">37%</span><p>of the ingest in the sample environment had no searches, alerts or scheduled reports in 90 days.</p></li>
+        <li><span class="math-fig">$10,000</span><p>a year: roughly what 10% less ingest is worth on a $100,000-a-year Splunk license.</p></li>
+        <li><span class="math-fig">$69</span><p>once, for Pro. At that rate it pays for itself in about three days.</p></li>
       </ul>
+      <p class="math-foot">Illustrative example. What you save depends on your Splunk contract and on what you decide to change; the tool estimates, it doesn't guarantee.</p>
     </div>
   </section>
 
-  <section class="section section-alt" id="how-it-works" aria-labelledby="how-title">
+  <section class="section" id="how-it-works" aria-labelledby="how-title">
     <div class="wrap">
-      <p class="eyebrow">How it works</p>
-      <h2 id="how-title">Four steps, all on your own machine.</h2>
-      <p class="body-lg narrow">The tool reads aggregated metadata about volume and usage, never your raw events, and sends nothing to us.</p>
-      <div class="arch">
-        <ol class="arch-flow" aria-label="Log Spend Auditor processing steps">
-          <li class="stage stage-input">
-            <p class="stage-tag"><span class="stage-no">01</span><span class="stage-name">Input</span></p>
-            <div class="stage-body">
-              <h3>Your Splunk data</h3>
-              <ul class="sources">
-                <li class="src">CSV exports</li>
-                <li class="src-or" aria-hidden="true">or</li>
-                <li class="src">Read-only REST API</li>
-              </ul>
-              <p class="stage-text">License usage plus search, alert and scheduled-report activity.</p>
-              <p class="stage-note">No raw events required.</p>
-            </div>
-          </li>
-          <li class="stage stage-collect">
-            <p class="stage-tag"><span class="stage-no">02</span><span class="stage-name">Collect</span></p>
-            <div class="stage-body">
-              <h3>Read-only collector</h3>
-              <ul class="props">
-                <li>Never changes Splunk</li>
-                <li>Runs locally</li>
-                <li>No telemetry</li>
-              </ul>
-            </div>
-          </li>
-          <li class="stage stage-engine">
-            <p class="stage-tag"><span class="stage-no">03</span><span class="stage-name">Analyze</span></p>
-            <div class="stage-body">
-              <h3>Analysis engine</h3>
-              <ul class="signals">
-                <li>Volume per index and sourcetype</li>
-                <li>Who searches it, and how often</li>
-                <li>Alerts and scheduled reports</li>
-                <li>Protects security and audit data</li>
-              </ul>
-            </div>
-          </li>
-          <li class="stage stage-act">
-            <p class="stage-tag"><span class="stage-no">04</span><span class="stage-name">Result</span></p>
-            <div class="stage-body outputs">
-              <div class="output output-community">
-                <h3><span class="out-edition">Community</span> <span class="out-name">Quickscan</span></h3>
-                <ul><li>Total ingest and candidate volume</li><li>Top candidates</li><li>Terminal summary</li></ul>
-              </div>
-              <div class="output output-pro">
-                <h3><span class="out-edition">Pro</span> <span class="out-name">Full audit</span></h3>
-                <ul><li>Every dataset, classified</li><li>Evidence and explanation</li><li>Shareable HTML report</li></ul>
-              </div>
-            </div>
-          </li>
-        </ol>
+      <div class="section-head">
+        <h2 id="how-title">From download to findings in about 15 minutes.</h2>
+        <p class="body-lg">Everything runs on your machine. Nothing is sent to us.</p>
       </div>
+      <ol class="steps">
+        <li><h3>Get your data</h3><p>Run the bundled searches and export the CSVs, or point it at the Splunk API with a read-only token.</p></li>
+        <li><h3>Run the Quickscan</h3><p>Free. See total ingest, how much looks unused and the top candidates.</p></li>
+        <li><h3>Run the full audit</h3><p>With Pro, every dataset gets classified, with the evidence behind it.</p></li>
+        <li><h3>Talk to the owners</h3><p>Share the report and decide together what to filter, sample or drop.</p></li>
+      </ol>
     </div>
   </section>
 
-  <section class="section" id="report" aria-labelledby="report-title">
+  <section class="section section-paper" id="report" aria-labelledby="report-title">
     <div class="wrap">
-      <p class="eyebrow">What you get</p>
-      <h2 id="report-title">Every finding comes with its evidence.</h2>
-      <p class="body-lg narrow">The Pro report doesn't just list numbers. It explains in plain language why each dataset was flagged, so you can take it straight to the data owner.</p>
+      <div class="section-head">
+        <h2 id="report-title">Every finding comes with the evidence to act on it.</h2>
+        <p class="body-lg">The report explains in plain language why each dataset was flagged, so the conversation with the data owner takes five minutes instead of a meeting series.</p>
+      </div>
       <div class="report-grid">
         <article class="finding" aria-label="Example finding from the sample report">
           <p class="finding-kicker">Example from the sample report</p>
           <div class="finding-head">
             <span class="finding-name">app:debug_verbose</span>
-            <span class="cand-status st-waste">POSSIBLE_WASTE</span>
+            <span class="status status-waste">Possible waste</span>
           </div>
           <dl class="finding-signals">
             <div><dt>Ingest</dt><dd>38.0 GB/day</dd></div>
@@ -185,112 +157,40 @@
         </article>
         <div class="legend">
           <h3>What each label means</h3>
-          <ul>
-            <li><span class="tag tag-waste">POSSIBLE_WASTE</span><p>High volume and no searches, alerts or scheduled reports in 90 days. The strongest candidates.</p></li>
-            <li><span class="tag tag-review">REVIEW</span><p>Some signs of low use, but not enough to be sure. Worth a check with the owner.</p></li>
-            <li><span class="tag tag-value">HIGH_VALUE</span><p>Used by alerts, scheduled reports or frequent searches. Keep it.</p></li>
-            <li><span class="tag tag-protected">PROTECTED</span><p>Security, audit and compliance data. Never flagged as waste, whatever the numbers say.</p></li>
-            <li><span class="tag tag-normal">NORMAL</span> <span class="tag tag-unknown">UNKNOWN</span><p>Normal use, or not enough signal to classify. Shown so the inventory is complete.</p></li>
-          </ul>
-          <p class="legend-link"><a href="sample-report/">Open the complete sample Pro report →</a></p>
+          <dl>
+            <div><dt><span class="status status-waste">Possible waste</span></dt><dd>High volume and no searches, alerts or scheduled reports in 90 days. The strongest candidates.</dd></div>
+            <div><dt><span class="status status-review">Review</span></dt><dd>Some signs of low use, but not enough to be sure. Worth a check with the owner.</dd></div>
+            <div><dt><span class="status status-value">High value</span></dt><dd>Used by alerts, scheduled reports or frequent searches. Keep it.</dd></div>
+            <div><dt><span class="status status-protected">Protected</span></dt><dd>Security, audit and compliance data. Never flagged as waste, whatever the numbers say.</dd></div>
+          </dl>
+          <p class="legend-link"><a href="sample-report/">Open the complete sample report</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="tested" aria-labelledby="tested-title">
-    <div class="wrap two-col">
+  <section class="section" id="tested" aria-labelledby="tested-title">
+    <div class="wrap split">
       <div>
-        <p class="eyebrow">Validation</p>
-        <h2 id="tested-title">Tested end to end against real Splunk Enterprise.</h2>
+        <h2 id="tested-title">Tested against real Splunk Enterprise, not just a demo.</h2>
         <p class="body-lg">Before launch, the tool was run against a Splunk Enterprise 10.4.3 lab built for this purpose: real indexes with different volumes, real interactive searches, a real scheduled report and a real alert with an email action.</p>
         <p class="muted">What has not been validated yet: Splunk Cloud, and production-scale volumes. If you run it there, I want to hear how it goes.</p>
       </div>
-      <ul class="statements">
-        <li><h3>7 out of 7 classifications correct</h3><p>Each lab dataset (frequent searches, scheduled-only, alert-only, protected, normal, review, unused) landed in the expected category.</p></li>
-        <li><h3>Safe with restricted tokens</h3><p>With a role that cannot read _audit, the tool notices it and never reports data as unused. It downgrades the finding and tells you why.</p></li>
-        <li><h3>Clean failures</h3><p>Invalid tokens, unreachable hosts and missing permissions produce a clear message, not a stack trace or a half-built report.</p></li>
-        <li><h3>Real bugs fixed</h3><p>Running against real Splunk found three issues that synthetic data never would. All three are fixed and covered by regression tests.</p></li>
+      <ul class="proof">
+        <li><div><h3>7 out of 7 classifications correct</h3><p>Each lab dataset (frequent searches, scheduled-only, alert-only, protected, normal, review, unused) landed in the expected category.</p></div></li>
+        <li><div><h3>Safe with restricted tokens</h3><p>With a role that cannot read _audit, the tool notices it and never reports data as unused. It downgrades the finding and tells you why.</p></div></li>
+        <li><div><h3>Clean failures</h3><p>Invalid tokens, unreachable hosts and missing permissions produce a clear message, not a stack trace or a half-built report.</p></div></li>
+        <li><div><h3>Real bugs fixed</h3><p>Running against real Splunk found three issues that synthetic data never would. All three are fixed and covered by regression tests.</p></div></li>
       </ul>
     </div>
   </section>
 
-  <section class="section" id="pricing" aria-labelledby="pricing-title">
+  <section class="section section-paper" id="security" aria-labelledby="security-title">
     <div class="wrap">
-      <p class="eyebrow">Pricing</p>
-      <h2 id="pricing-title">Start free. Pay once if you need the full audit.</h2>
-      <p class="body-lg narrow">Community discovers the problem. Pro explains the problem.</p>
-      <div class="editions">
-        <article class="edition" aria-labelledby="ed-community">
-          <div class="ed-top"><h3 id="ed-community" class="ed-label">Community</h3></div>
-          <div class="ed-price">
-            <p class="amount">Free</p>
-            <p class="amount-sub">No license required</p>
-          </div>
-          <p class="ed-tagline">Find out whether there is a problem.</p>
-          <ul class="check">
-            <li>Quickscan on your real environment</li>
-            <li>Total observed ingest</li>
-            <li>How much volume is worth reviewing</li>
-            <li>Top candidates preview</li>
-            <li>Full offline demo</li>
-          </ul>
-          <a class="btn btn-secondary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
-        </article>
-        <article class="edition edition-pro" aria-labelledby="ed-pro">
-          <div class="ed-top">
-            <h3 id="ed-pro" class="ed-label">Pro</h3>
-            <span class="badge-launch">Launch</span>
-          </div>
-          <div class="ed-price">
-            <p class="amount">$69</p>
-            <p class="amount-sub">launch price</p>
-            <p class="amount-was">$99 regular</p>
-          </div>
-          <p class="ed-tagline">Know exactly what to review, and why.</p>
-          <ul class="terms">
-            <li>One-time purchase</li>
-            <li>1 active installation</li>
-            <li>License does not expire</li>
-          </ul>
-          <ul class="check">
-            <li>Every dataset classified</li>
-            <li>Evidence and explanation for each finding</li>
-            <li>Data Value Score to prioritize</li>
-            <li>Recommendations, risks and methodology</li>
-            <li>HTML and Markdown report to share</li>
-          </ul>
-          <p class="ed-sample"><a href="sample-report/">See a sample Pro report →</a></p>
-          <a class="btn btn-primary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
-          <p class="fine">Regular price $99 · One-time purchase. Launch price limited to the first 10 redemptions.</p>
-        </article>
+      <div class="section-head">
+        <h2 id="security-title">Your Splunk data stays in your environment.</h2>
+        <p class="body-lg">Built for teams that can't send operational data to a third party.</p>
       </div>
-      <p class="muted center">Start with Community. Upgrade to Pro in the same application — no reinstall required.</p>
-      <ul class="platforms" aria-label="Supported platforms">
-        <li class="plat-live">
-          <h3>Linux x86_64</h3>
-          <p class="plat-status"><span class="status-ok">Available now</span></p>
-          <p class="plat-detail">Built and tested on Ubuntu 22.04 LTS</p>
-          <p class="plat-detail">Requires glibc 2.35 or newer</p>
-        </li>
-        <li>
-          <h3>macOS</h3>
-          <p class="plat-status"><span class="status-later">Coming later</span></p>
-        </li>
-        <li>
-          <h3>Windows</h3>
-          <p class="plat-status"><span class="status-later">Coming later</span></p>
-          <p class="plat-detail">Today: use a Linux host or WSL2</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="security" aria-labelledby="security-title">
-    <div class="wrap">
-      <p class="eyebrow">Security and privacy</p>
-      <h2 id="security-title">Your Splunk data stays in your environment.</h2>
-      <p class="body-lg narrow">Built for teams that can't send operational data to a third party.</p>
       <ul class="facts">
         <li><h3>Runs locally</h3><p>The analysis runs on your machine. There is no cloud service behind it.</p></li>
         <li><h3>Read-only</h3><p>It never changes Splunk configuration or data.</p></li>
@@ -303,11 +203,105 @@
     </div>
   </section>
 
-  <section class="section" id="free-queries" aria-labelledby="queries-title">
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
-      <p class="eyebrow">Free, no download</p>
-      <h2 id="queries-title">Three Splunk searches to see where your ingest goes.</h2>
-      <p class="body-lg narrow">Paste these into Splunk Search today. They need the <code>search</code> capability and read access to <code>_internal</code> and <code>_audit</code>. No admin role.</p>
+      <div class="section-head">
+        <h2 id="pricing-title">Start free. Pay once if it finds something.</h2>
+        <p class="body-lg">Community discovers the problem. Pro explains the problem. Run the free Quickscan first: if it doesn't find anything worth reviewing, you don't need Pro.</p>
+      </div>
+      <div class="pricing-grid">
+        <article class="plan" aria-labelledby="plan-community">
+          <h3 id="plan-community" class="plan-name">Community</h3>
+          <div class="plan-price"><span class="plan-amount">Free</span></div>
+          <p class="plan-sub">No license required</p>
+          <p class="plan-tagline">Find out if you have a problem.</p>
+          <ul class="check">
+            <li>Quickscan on your real environment</li>
+            <li>Total observed ingest</li>
+            <li>How much volume is worth reviewing</li>
+            <li>Top candidates preview</li>
+            <li>Full offline demo</li>
+          </ul>
+          <a class="btn btn-secondary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
+        </article>
+        <article class="plan plan-pro" aria-labelledby="plan-pro">
+          <p class="plan-badge">Launch price</p>
+          <h3 id="plan-pro" class="plan-name">Pro</h3>
+          <div class="plan-price"><span class="plan-amount">$69</span><span class="plan-was">$99</span></div>
+          <p class="plan-sub">One-time purchase. No recurring fees.</p>
+          <p class="plan-tagline">Know exactly what to cut, and why.</p>
+          <ul class="check">
+            <li class="strong">Everything in Community</li>
+            <li>Every dataset classified</li>
+            <li>Evidence and explanation for each finding</li>
+            <li>Data Value Score to prioritize</li>
+            <li>Recommendations, risks and methodology</li>
+            <li>HTML and Markdown report to share</li>
+            <li>1 active installation</li>
+            <li>License does not expire</li>
+          </ul>
+          <p class="plan-sample"><a href="sample-report/">See exactly what the Pro report contains</a></p>
+          <a class="btn btn-primary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
+          <p class="plan-fine">Regular price $99. One-time purchase. Launch price limited to the first 10 redemptions.</p>
+        </article>
+      </div>
+      <div class="try-first">
+        <h3>See the full Pro report before you pay.</h3>
+        <p>The free download includes a demo that generates the complete Pro report on sample data, exactly as you'd get it for your environment. Run it, read it, then decide. You can also <a href="sample-report/">open it here</a> without installing anything.</p>
+      </div>
+      <p class="upgrade-note">Start with Community. Upgrade to Pro in the same application — no reinstall required.</p>
+      <ul class="platforms" aria-label="Supported platforms">
+        <li>
+          <h3>Linux x86_64</h3>
+          <p class="plat-status status-ok">Available now</p>
+          <p class="plat-detail">Built and tested on Ubuntu 22.04 LTS</p>
+          <p class="plat-detail">Requires glibc 2.35 or newer</p>
+        </li>
+        <li>
+          <h3>Windows</h3>
+          <p class="plat-status status-later">Coming later</p>
+          <p class="plat-detail">Today: use a Linux host or WSL2</p>
+        </li>
+        <li>
+          <h3>macOS</h3>
+          <p class="plat-status status-later">Coming later</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-paper" id="builder" aria-labelledby="builder-title">
+    <div class="wrap">
+      <div class="note-card">
+        <h2 id="builder-title">Built by an engineer who has done this audit by hand.</h2>
+        <p class="body-lg">I'm Alvaro, an engineer who designs and runs monitoring and observability platforms for enterprise clients. The same question comes up in every Splunk environment: which of this data are we still paying for, and does anyone use it? Answering it meant days of hand-written searches and spreadsheets.</p>
+        <p class="body-lg">Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href="mailto:support@logspendauditor.com">support@logspendauditor.com</a> and I will answer.</p>
+        <p class="signature">Alvaro<span>Observability engineer, maker of Log Spend Auditor</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <h2 id="faq-title">Questions before you buy.</h2>
+      <div class="faq">
+        <details><summary>Do I have to give the tool my Splunk credentials?</summary><p>No. In CSV mode you run the bundled searches yourself, export the results and point the tool at the folder. It never talks to Splunk. REST mode is optional and uses a read-only token you provide, which stays on your machine.</p></details>
+        <details><summary>What Splunk permissions does it need?</summary><p>The <code>search</code> capability plus read access to <code>_internal</code> (license usage) and <code>_audit</code> (search activity). No admin role. It never creates, modifies or deletes configuration or data.</p></details>
+        <details><summary>Can I see what Pro gives me before buying?</summary><p>Yes. Run <code>splunk-spend-auditor demo</code> from the free download: it writes the complete Pro report on sample data. The same report is <a href="sample-report/">on this site</a>. And the free Quickscan on your own data tells you whether there is anything worth auditing before you pay.</p></details>
+        <details><summary>Why does the free download go through a checkout?</summary><p>Community is delivered through Lemon Squeezy so you get a permanent download link by email. It costs nothing and needs no license key.</p></details>
+        <details><summary>I'm on a Mac or Windows laptop. Can I use it?</summary><p>The current build runs on Linux x86_64 with glibc 2.35 or newer, for example a jump host, a VM or WSL2 with Ubuntu 22.04. Native macOS and Windows builds come later.</p></details>
+        <details><summary>Will it tell me to delete data?</summary><p>No. It classifies each index and sourcetype and shows the evidence behind it. Findings are candidates to review with the data owner; savings are an estimate, not a guarantee, and you decide what to change.</p></details>
+        <details><summary>What do I get with Pro that Quickscan doesn't show?</summary><p>The classification of every dataset, the evidence and explanation for each one, the Data Value Score, recommendations, risks and methodology, as an HTML and Markdown report you can share. <a href="sample-report/">Here is a complete example.</a></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper" id="free-queries" aria-labelledby="queries-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="queries-title">Not ready yet? Start with three free searches.</h2>
+        <p class="body-lg">Paste these into Splunk Search today. They need the <code>search</code> capability and read access to <code>_internal</code> and <code>_audit</code>. No admin role.</p>
+      </div>
       <ol class="queries">
         <li>
           <h3>1. Your biggest datasets, in GB/day</h3>
@@ -339,44 +333,15 @@ NOT user=splunk-system-user
     </div>
   </section>
 
-  <section class="section section-alt" id="builder" aria-labelledby="builder-title">
-    <div class="wrap two-col">
-      <div>
-        <p class="eyebrow">Who builds this</p>
-        <h2 id="builder-title">Built by an observability engineer, not a sales team.</h2>
-      </div>
-      <div>
-        <p class="body-lg">I'm Alvaro, an engineer who designs and runs monitoring and observability platforms for enterprise clients. The same question comes up in every Splunk environment: which of this data are we still paying for, and does anyone use it? Answering it meant days of hand-written searches and spreadsheets.</p>
-        <p class="body-lg">Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href="mailto:support@logspendauditor.com">support@logspendauditor.com</a> and I will answer.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq" aria-labelledby="faq-title">
-    <div class="wrap">
-      <p class="eyebrow">FAQ</p>
-      <h2 id="faq-title">Questions Splunk admins ask first.</h2>
-      <div class="faq">
-        <details><summary>Do I have to give the tool my Splunk credentials?</summary><p>No. In CSV mode you run the bundled searches yourself, export the results and point the tool at the folder. It never talks to Splunk. REST mode is optional and uses a read-only token you provide, which stays on your machine.</p></details>
-        <details><summary>What Splunk permissions does it need?</summary><p>The <code>search</code> capability plus read access to <code>_internal</code> (license usage) and <code>_audit</code> (search activity). No admin role. It never creates, modifies or deletes configuration or data.</p></details>
-        <details><summary>Why does the free download go through a checkout?</summary><p>Community is delivered through Lemon Squeezy so you get a permanent download link by email. It costs nothing and needs no license key.</p></details>
-        <details><summary>I'm on a Mac or Windows laptop. Can I use it?</summary><p>The current build runs on Linux x86_64 with glibc 2.35 or newer, for example a jump host, a VM or WSL2 with Ubuntu 22.04. Native macOS and Windows builds come later.</p></details>
-        <details><summary>Will it tell me to delete data?</summary><p>No. It classifies each index and sourcetype and shows the evidence behind it. Findings are candidates to review with the data owner; savings are an estimate, not a guarantee, and you decide what to change.</p></details>
-        <details><summary>What do I get with Pro that Quickscan doesn't show?</summary><p>The classification of every dataset, the evidence and explanation for each one, the Data Value Score, recommendations, risks and methodology, as an HTML and Markdown report you can share. <a href="sample-report/">Here is a complete example.</a></p></details>
-      </div>
-    </div>
-  </section>
-
   <section class="final" id="get-started" aria-labelledby="final-title">
     <div class="wrap final-inner">
-      <h2 id="final-title">See what your Splunk ingest is really used for.</h2>
-      <p class="body-lg">Run the free Quickscan on your own machine in a few minutes. Your Splunk data stays there.</p>
+      <h2 id="final-title">Find out what you're paying for this week.</h2>
+      <p class="body-lg">The Quickscan is free and takes minutes. If it finds nothing, you've lost nothing.</p>
       <div class="cta cta-center">
         <a class="btn btn-primary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
         <a class="btn btn-secondary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
       </div>
-      <p class="price-line center">Regular $99 · One-time purchase · License does not expire</p>
-      <p class="price-fine center">Launch price limited to the first 10 redemptions.</p>
+      <p class="price-note">Community is free. Pro is a one-time $69, no recurring fees.</p>
     </div>
   </section>
 </main>
@@ -390,10 +355,11 @@ NOT user=splunk-system-user
     </div>
     <nav aria-label="Footer">
       <ul class="links">
+        <li><a href="docs/">Docs</a></li>
         <li><a href="privacy/">Privacy</a></li>
         <li><a href="terms/">Terms</a></li>
         <li><a href="es/" hreflang="es" lang="es">Español</a></li>
-        <li><a href="mailto:support@logspendauditor.com">Support: support@logspendauditor.com</a></li>
+        <li><a href="mailto:support@logspendauditor.com">support@logspendauditor.com</a></li>
       </ul>
     </nav>
   </div>
