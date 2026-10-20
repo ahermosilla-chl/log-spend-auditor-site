@@ -398,3 +398,37 @@ ul.check li::before { content: ""; position: absolute; left: 3px; top: 1.08em; w
 .faq details[open] summary::after { content: "–"; }
 .faq details p { padding: 0 0 22px; color: var(--muted); max-width: 72ch; }
 @media (max-width: 720px) { .queries pre { font-size: 12px; } .faq summary { font-size: 16px; } }
+
+/* --- redesign pass: language switch, report section, pricing platforms --- */
+.lang { display: inline-flex; align-items: center; justify-content: center; min-width: 38px; height: 34px; padding: 0 10px; border: 1px solid var(--border-strong); border-radius: 8px; color: var(--text-2); font: 600 13px/1 var(--sans); letter-spacing: .04em; text-decoration: none; }
+.lang:hover { color: var(--text); border-color: var(--muted); background: var(--surface); }
+.report-grid { display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); gap: 48px; margin-top: 52px; align-items: start; }
+.finding { padding: 26px 28px; border: 1px solid var(--border-strong); border-radius: 16px; background: linear-gradient(180deg, var(--surface-2), var(--surface)); box-shadow: var(--shadow); min-width: 0; }
+.finding-kicker { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.finding-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 14px; }
+.finding-name { font: 600 18px/1.3 var(--mono); color: var(--text); overflow-wrap: anywhere; }
+.finding-signals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 20px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--border); gap: 1px; }
+.finding-signals div { padding: 12px 14px; background: var(--bg); min-width: 0; }
+.finding-signals dt { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.finding-signals dd { margin-top: 4px; font: 600 17px/1.2 var(--sans); color: var(--text); }
+.finding-why { margin-top: 20px; color: var(--text-2); }
+.finding-rec { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); color: var(--text-2); }
+.finding-rec strong { color: var(--text); }
+.legend h3 { font-size: 18px; }
+.legend ul { margin-top: 18px; border-top: 1px solid var(--border); }
+.legend li { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.legend li .tag { display: inline-block; }
+.legend li p { margin-top: 8px; font-size: 15px; color: var(--muted); }
+.legend-link { margin-top: 22px; font-weight: 600; }
+.legend-link a { text-decoration: none; }
+.legend-link a:hover { text-decoration: underline; }
+#pricing .platforms { margin-top: 56px; }
+#pricing .platforms h3 { font-size: 17px; }
+.plat-detail { font-size: 14px; color: var(--muted); }
+@media (max-width: 900px) {
+  .report-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 760px) {
+  .finding-signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finding { padding: 22px 20px; }
+}
