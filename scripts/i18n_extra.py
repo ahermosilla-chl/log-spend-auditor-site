@@ -1,4 +1,4 @@
-"""Extra EN/ES strings: docs page, lab validation section, refund policy.
+"""Extra EN/ES strings: docs page and lab validation section.
 
 Kept apart from build_i18n.py so each file stays readable. Keys here are
 merged into the EN/ES dicts there, and both languages must define the same keys.
@@ -6,11 +6,6 @@ merged into the EN/ES dicts there, and both languages must define the same keys.
 
 EN_EXTRA = {
     "nav_docs": "Docs",
-    # refund
-    "refund_short": "14-day refund",
-    "refund_final": "Not what you expected? Full refund within 14 days of purchase.",
-    "faq_7_q": "What if Pro doesn't work for my environment?",
-    "faq_7_a": "Write to <a href=\"mailto:support@logspendauditor.com\">support@logspendauditor.com</a> within 14 days of purchase and you get a full refund. Purchases are processed by Lemon Squeezy, so the refund goes back to the same payment method.",
     # lab validation
     "t_eyebrow": "Validation",
     "t_title": "Tested end to end against real Splunk Enterprise.",
@@ -62,10 +57,6 @@ EN_EXTRA = {
 
 ES_EXTRA = {
     "nav_docs": "Documentación",
-    "refund_short": "Reembolso en 14 días",
-    "refund_final": "¿No es lo que esperabas? Reembolso completo dentro de los 14 días posteriores a la compra.",
-    "faq_7_q": "¿Y si Pro no funciona en mi entorno?",
-    "faq_7_a": "Escribe a <a href=\"mailto:support@logspendauditor.com\">support@logspendauditor.com</a> dentro de los 14 días posteriores a la compra y recibes el reembolso completo. Las compras las procesa Lemon Squeezy, así que el dinero vuelve al mismo medio de pago.",
     "t_eyebrow": "Validación",
     "t_title": "Probado de punta a punta contra Splunk Enterprise real.",
     "t_body": "Antes del lanzamiento, la herramienta se ejecutó contra un laboratorio de Splunk Enterprise 10.4.3 armado para esto: índices reales con volúmenes distintos, búsquedas interactivas reales, un reporte programado real y una alerta real con acción de email.",
