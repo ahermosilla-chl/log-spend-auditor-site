@@ -248,7 +248,7 @@ ES = {
 }
 
 
-from i18n_extra import EN_EXTRA, ES_EXTRA  # noqa: E402  (docs, validation and refund strings)
+from i18n_extra import EN_EXTRA, ES_EXTRA  # noqa: E402  (docs and validation strings)
 
 EN.update(EN_EXTRA)
 ES.update(ES_EXTRA)
