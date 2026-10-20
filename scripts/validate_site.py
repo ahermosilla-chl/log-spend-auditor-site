@@ -6,10 +6,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 COMMUNITY = "https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934"
 PRO = "https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69"
-PAGES = ["index.html", "es/index.html", "privacy/index.html", "terms/index.html", "sample-report/index.html"]
+PAGES = ["index.html", "es/index.html", "docs/index.html", "es/docs/index.html", "privacy/index.html", "terms/index.html", "sample-report/index.html"]
 CANONICAL = {
     "index.html": "https://logspendauditor.com/",
     "es/index.html": "https://logspendauditor.com/es/",
+    "docs/index.html": "https://logspendauditor.com/docs/",
+    "es/docs/index.html": "https://logspendauditor.com/es/docs/",
     "privacy/index.html": "https://logspendauditor.com/privacy/",
     "terms/index.html": "https://logspendauditor.com/terms/",
     "sample-report/index.html": "https://logspendauditor.com/sample-report/",
@@ -65,7 +67,8 @@ for page in PAGES:
         if tag in ("img", "link", "source", "video", "audio", "use"):
             ref = a.get("src") or a.get("href") or ""
             if tag == "link" and a.get("rel") == "alternate":
-                if ref not in ("https://logspendauditor.com/", "https://logspendauditor.com/es/"):
+                if ref not in ("https://logspendauditor.com/", "https://logspendauditor.com/es/",
+                               "https://logspendauditor.com/docs/", "https://logspendauditor.com/es/docs/"):
                     err(f"{page}: unexpected hreflang alternate {ref}")
             elif tag == "link" and a.get("rel") == "canonical":
                 if ref != CANONICAL[page]:
@@ -146,8 +149,9 @@ for page in PAGES:
             err(f"{page}: {why_}: {val!r}")
     if not any(n in raw for n in ("not affiliated with or endorsed by Splunk Inc", "no está afiliado ni respaldado por Splunk Inc")):
         err(f"{page}: missing trademark disclaimer")
-    if "Last updated" in raw and "2026-10-09" not in raw:
-        err(f"{page}: Last updated not 2026-10-09")
+    expected_date = {"terms/index.html": "2026-10-19"}.get(page, "2026-10-09")
+    if "Last updated" in raw and expected_date not in raw:
+        err(f"{page}: Last updated not {expected_date}")
 
 # checkout CTAs on landing
 raw, p = parsed["index.html"]
@@ -199,7 +203,7 @@ for page in PAGES:
         if 'href="report.css"' not in parsed[page][0]:
             err(f"{page}: does not link report.css")
         continue
-    if 'href="' + ("../" if "/" in page else "") + 'site-v2.css"' not in parsed[page][0]:
+    if 'href="' + "../" * page.count("/") + 'site-v2.css"' not in parsed[page][0]:
         err(f"{page}: does not link site-v2.css")
 if (ROOT / "style.css").exists():
     err("old style.css still present")

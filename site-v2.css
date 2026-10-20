@@ -432,3 +432,34 @@ ul.check li::before { content: ""; position: absolute; left: 3px; top: 1.08em; w
   .finding-signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .finding { padding: 22px 20px; }
 }
+
+/* --- docs page --- */
+.docs { padding: 72px 0 104px; }
+.docs-grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; align-items: start; }
+.docs-toc { position: sticky; top: 96px; }
+.docs-toc ol { border-left: 1px solid var(--border); }
+.docs-toc a { display: block; padding: 6px 0 6px 16px; margin-left: -1px; border-left: 1px solid transparent; color: var(--muted); font-size: 14.5px; text-decoration: none; }
+.docs-toc a:hover { color: var(--text); border-left-color: var(--accent); }
+.docs-body { max-width: 760px; min-width: 0; }
+.docs-body > .eyebrow { display: none; }
+.docs-body section { padding-top: 48px; scroll-margin-top: 80px; }
+.docs-body h2 { font-size: 26px; max-width: none; }
+.docs-body p, .docs-body .doc-list { margin-top: 14px; color: var(--text-2); }
+.docs-body pre { margin: 16px 0 0; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); overflow-x: auto; font: 13.5px/1.65 var(--mono); color: var(--text); }
+.docs-body code { font-family: var(--mono); font-size: .9em; color: var(--text); }
+.docs-body :not(pre) > code { padding: 1px 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--border); }
+.doc-list { padding-left: 20px; list-style: disc; }
+.doc-list li { margin-top: 8px; }
+.doc-list li::marker { color: var(--accent); }
+.table-wrap { margin-top: 16px; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.docs-body table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.docs-body th, .docs-body td { padding: 11px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+.docs-body th { background: var(--surface); color: var(--muted); font-weight: 600; font-size: 13px; }
+.docs-body td { color: var(--text-2); }
+.docs-body tr:last-child td { border-bottom: 0; }
+@media (max-width: 900px) {
+  .docs-grid { grid-template-columns: 1fr; gap: 0; }
+  .docs-toc { display: none; }
+  .docs-body > .eyebrow { display: block; }
+  .docs { padding: 48px 0 72px; }
+}

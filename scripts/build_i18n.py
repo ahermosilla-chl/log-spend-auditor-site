@@ -11,7 +11,8 @@ TEMPLATE = (ROOT / "scripts/i18n/template.html").read_text(encoding="utf-8")
 
 COMMUNITY = "https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934"
 PRO = "https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69"
-SHARED = {"community_url": COMMUNITY, "pro_url": PRO}
+SUPPORT = "support@logspendauditor.com"
+SHARED = {"community_url": COMMUNITY, "pro_url": PRO, "support_email": SUPPORT}
 
 EN = {
     # meta / chrome
@@ -113,7 +114,7 @@ EN = {
     "builder_eyebrow": "Who builds this",
     "builder_title": "Built by an observability engineer, not a sales team.",
     "builder_p1": "I'm Alvaro, an engineer who designs and runs monitoring and observability platforms for enterprise clients. The same question comes up in every Splunk environment: which of this data are we still paying for, and does anyone use it? Answering it meant days of hand-written searches and spreadsheets.",
-    "builder_p2": "Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href=\"mailto:alvaro.duemis@gmail.com\">alvaro.duemis@gmail.com</a> and I will answer.",
+    "builder_p2": "Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href=\"mailto:support@logspendauditor.com\">support@logspendauditor.com</a> and I will answer.",
     # faq
     "faq_title": "Questions Splunk admins ask first.",
     "faq_1_q": "Do I have to give the tool my Splunk credentials?",
@@ -226,7 +227,7 @@ ES = {
     "builder_eyebrow": "Quién lo construye",
     "builder_title": "Hecho por un ingeniero de observabilidad, no por un equipo de ventas.",
     "builder_p1": "Soy Alvaro, ingeniero que diseña y opera plataformas de monitoreo y observabilidad para clientes empresariales. En cada entorno Splunk aparece la misma pregunta: ¿qué datos seguimos pagando y alguien los usa? Responderla significaba días de búsquedas escritas a mano y planillas.",
-    "builder_p2": "Log Spend Auditor es ese trabajo convertido en herramienta: solo lectura, local y explicable línea por línea. ¿Dudas o algún problema al ejecutarla? Escríbeme directamente a <a href=\"mailto:alvaro.duemis@gmail.com\">alvaro.duemis@gmail.com</a> y te respondo.",
+    "builder_p2": "Log Spend Auditor es ese trabajo convertido en herramienta: solo lectura, local y explicable línea por línea. ¿Dudas o algún problema al ejecutarla? Escríbeme directamente a <a href=\"mailto:support@logspendauditor.com\">support@logspendauditor.com</a> y te respondo.",
     "faq_title": "Lo primero que preguntan los administradores de Splunk.",
     "faq_1_q": "¿Tengo que darle mis credenciales de Splunk a la herramienta?",
     "faq_1_a": "No. En modo CSV tú ejecutas las búsquedas incluidas, exportas los resultados y le indicas la carpeta a la herramienta. Nunca se conecta a Splunk. El modo REST es opcional y usa un token de solo lectura que tú entregas y que no sale de tu equipo.",
@@ -247,15 +248,24 @@ ES = {
 }
 
 
-def render(strings: dict, out: Path) -> None:
+from i18n_extra import EN_EXTRA, ES_EXTRA  # noqa: E402  (docs, validation and refund strings)
+
+EN.update(EN_EXTRA)
+ES.update(ES_EXTRA)
+DOCS_TEMPLATE = (ROOT / "scripts/i18n/docs.html").read_text(encoding="utf-8")
+
+
+def render(template: str, strings: dict, out: Path) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(TEMPLATE.format_map({**strings, **SHARED}), encoding="utf-8")
+    out.write_text(template.format_map({**strings, **SHARED}), encoding="utf-8")
 
 
 if __name__ == "__main__":
     missing = set(EN) ^ set(ES)
     if missing:
         raise SystemExit(f"EN/ES keys differ: {sorted(missing)}")
-    render(EN, ROOT / "index.html")
-    render(ES, ROOT / "es/index.html")
-    print("Rendered index.html and es/index.html")
+    render(TEMPLATE, EN, ROOT / "index.html")
+    render(TEMPLATE, ES, ROOT / "es/index.html")
+    render(DOCS_TEMPLATE, EN, ROOT / "docs/index.html")
+    render(DOCS_TEMPLATE, ES, ROOT / "es/docs/index.html")
+    print("Rendered index.html, es/index.html, docs/index.html, es/docs/index.html")

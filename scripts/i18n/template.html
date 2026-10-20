@@ -33,6 +33,7 @@
         <li><a href="#report">{nav_report}</a></li>
         <li><a href="#pricing">{nav_pricing}</a></li>
         <li><a href="#security">{nav_security}</a></li>
+        <li><a href="docs/">{nav_docs}</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
@@ -197,7 +198,24 @@
     </div>
   </section>
 
-  <section class="section section-alt" id="pricing" aria-labelledby="pricing-title">
+  <section class="section section-alt" id="tested" aria-labelledby="tested-title">
+    <div class="wrap two-col">
+      <div>
+        <p class="eyebrow">{t_eyebrow}</p>
+        <h2 id="tested-title">{t_title}</h2>
+        <p class="body-lg">{t_body}</p>
+        <p class="muted">{t_limits}</p>
+      </div>
+      <ul class="statements">
+        <li><h3>{t_1_t}</h3><p>{t_1_p}</p></li>
+        <li><h3>{t_2_t}</h3><p>{t_2_p}</p></li>
+        <li><h3>{t_3_t}</h3><p>{t_3_p}</p></li>
+        <li><h3>{t_4_t}</h3><p>{t_4_p}</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
       <p class="eyebrow">{pricing_eyebrow}</p>
       <h2 id="pricing-title">{pricing_title}</h2>
@@ -234,6 +252,7 @@
             <li>{one_time}</li>
             <li>{one_install}</li>
             <li>{no_expire}</li>
+            <li>{refund_short}</li>
           </ul>
           <ul class="check">
             <li>{p_f1}</li>
@@ -268,7 +287,7 @@
     </div>
   </section>
 
-  <section class="section" id="security" aria-labelledby="security-title">
+  <section class="section section-alt" id="security" aria-labelledby="security-title">
     <div class="wrap">
       <p class="eyebrow">{sec_eyebrow}</p>
       <h2 id="security-title">{sec_title}</h2>
@@ -285,7 +304,7 @@
     </div>
   </section>
 
-  <section class="section section-alt" id="free-queries" aria-labelledby="queries-title">
+  <section class="section" id="free-queries" aria-labelledby="queries-title">
     <div class="wrap">
       <p class="eyebrow">{q_eyebrow}</p>
       <h2 id="queries-title">{q_title}</h2>
@@ -321,7 +340,7 @@ NOT user=splunk-system-user
     </div>
   </section>
 
-  <section class="section" id="builder" aria-labelledby="builder-title">
+  <section class="section section-alt" id="builder" aria-labelledby="builder-title">
     <div class="wrap two-col">
       <div>
         <p class="eyebrow">{builder_eyebrow}</p>
@@ -334,7 +353,7 @@ NOT user=splunk-system-user
     </div>
   </section>
 
-  <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+  <section class="section" id="faq" aria-labelledby="faq-title">
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
       <h2 id="faq-title">{faq_title}</h2>
@@ -345,6 +364,7 @@ NOT user=splunk-system-user
         <details><summary>{faq_4_q}</summary><p>{faq_4_a}</p></details>
         <details><summary>{faq_5_q}</summary><p>{faq_5_a}</p></details>
         <details><summary>{faq_6_q}</summary><p>{faq_6_a}</p></details>
+        <details><summary>{faq_7_q}</summary><p>{faq_7_a}</p></details>
       </div>
     </div>
   </section>
@@ -359,6 +379,7 @@ NOT user=splunk-system-user
       </div>
       <p class="price-line center">{price_line}</p>
       <p class="price-fine center">{price_fine}</p>
+      <p class="price-fine center">{refund_final}</p>
     </div>
   </section>
 </main>
@@ -375,7 +396,7 @@ NOT user=splunk-system-user
         <li><a href="{root}privacy/">{privacy}</a></li>
         <li><a href="{root}terms/">{terms}</a></li>
         <li><a href="{other_lang_href}" hreflang="{other_lang}" lang="{other_lang}">{other_lang_name}</a></li>
-        <li><a href="mailto:alvaro.duemis@gmail.com">{support}: alvaro.duemis@gmail.com</a></li>
+        <li><a href="mailto:{support_email}">{support}: {support_email}</a></li>
       </ul>
     </nav>
   </div>

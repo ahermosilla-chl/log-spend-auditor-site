@@ -33,6 +33,7 @@
         <li><a href="#report">The report</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#security">Security</a></li>
+        <li><a href="docs/">Docs</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
@@ -197,7 +198,24 @@
     </div>
   </section>
 
-  <section class="section section-alt" id="pricing" aria-labelledby="pricing-title">
+  <section class="section section-alt" id="tested" aria-labelledby="tested-title">
+    <div class="wrap two-col">
+      <div>
+        <p class="eyebrow">Validation</p>
+        <h2 id="tested-title">Tested end to end against real Splunk Enterprise.</h2>
+        <p class="body-lg">Before launch, the tool was run against a Splunk Enterprise 10.4.3 lab built for this purpose: real indexes with different volumes, real interactive searches, a real scheduled report and a real alert with an email action.</p>
+        <p class="muted">What has not been validated yet: Splunk Cloud, and production-scale volumes. If you run it there, I want to hear how it goes.</p>
+      </div>
+      <ul class="statements">
+        <li><h3>7 out of 7 classifications correct</h3><p>Each lab dataset (frequent searches, scheduled-only, alert-only, protected, normal, review, unused) landed in the expected category.</p></li>
+        <li><h3>Safe with restricted tokens</h3><p>With a role that cannot read _audit, the tool notices it and never reports data as unused. It downgrades the finding and tells you why.</p></li>
+        <li><h3>Clean failures</h3><p>Invalid tokens, unreachable hosts and missing permissions produce a clear message, not a stack trace or a half-built report.</p></li>
+        <li><h3>Real bugs fixed</h3><p>Running against real Splunk found three issues that synthetic data never would. All three are fixed and covered by regression tests.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
       <p class="eyebrow">Pricing</p>
       <h2 id="pricing-title">Start free. Pay once if you need the full audit.</h2>
@@ -234,6 +252,7 @@
             <li>One-time purchase</li>
             <li>1 active installation</li>
             <li>License does not expire</li>
+            <li>14-day refund</li>
           </ul>
           <ul class="check">
             <li>Every dataset classified</li>
@@ -268,7 +287,7 @@
     </div>
   </section>
 
-  <section class="section" id="security" aria-labelledby="security-title">
+  <section class="section section-alt" id="security" aria-labelledby="security-title">
     <div class="wrap">
       <p class="eyebrow">Security and privacy</p>
       <h2 id="security-title">Your Splunk data stays in your environment.</h2>
@@ -285,7 +304,7 @@
     </div>
   </section>
 
-  <section class="section section-alt" id="free-queries" aria-labelledby="queries-title">
+  <section class="section" id="free-queries" aria-labelledby="queries-title">
     <div class="wrap">
       <p class="eyebrow">Free, no download</p>
       <h2 id="queries-title">Three Splunk searches to see where your ingest goes.</h2>
@@ -321,7 +340,7 @@ NOT user=splunk-system-user
     </div>
   </section>
 
-  <section class="section" id="builder" aria-labelledby="builder-title">
+  <section class="section section-alt" id="builder" aria-labelledby="builder-title">
     <div class="wrap two-col">
       <div>
         <p class="eyebrow">Who builds this</p>
@@ -329,12 +348,12 @@ NOT user=splunk-system-user
       </div>
       <div>
         <p class="body-lg">I'm Alvaro, an engineer who designs and runs monitoring and observability platforms for enterprise clients. The same question comes up in every Splunk environment: which of this data are we still paying for, and does anyone use it? Answering it meant days of hand-written searches and spreadsheets.</p>
-        <p class="body-lg">Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href="mailto:alvaro.duemis@gmail.com">alvaro.duemis@gmail.com</a> and I will answer.</p>
+        <p class="body-lg">Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href="mailto:support@logspendauditor.com">support@logspendauditor.com</a> and I will answer.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+  <section class="section" id="faq" aria-labelledby="faq-title">
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
       <h2 id="faq-title">Questions Splunk admins ask first.</h2>
@@ -345,6 +364,7 @@ NOT user=splunk-system-user
         <details><summary>I'm on a Mac or Windows laptop. Can I use it?</summary><p>The current build runs on Linux x86_64 with glibc 2.35 or newer, for example a jump host, a VM or WSL2 with Ubuntu 22.04. Native macOS and Windows builds come later.</p></details>
         <details><summary>Will it tell me to delete data?</summary><p>No. It classifies each index and sourcetype and shows the evidence behind it. Findings are candidates to review with the data owner; savings are an estimate, not a guarantee, and you decide what to change.</p></details>
         <details><summary>What do I get with Pro that Quickscan doesn't show?</summary><p>The classification of every dataset, the evidence and explanation for each one, the Data Value Score, recommendations, risks and methodology, as an HTML and Markdown report you can share. <a href="sample-report/">Here is a complete example.</a></p></details>
+        <details><summary>What if Pro doesn't work for my environment?</summary><p>Write to <a href="mailto:support@logspendauditor.com">support@logspendauditor.com</a> within 14 days of purchase and you get a full refund. Purchases are processed by Lemon Squeezy, so the refund goes back to the same payment method.</p></details>
       </div>
     </div>
   </section>
@@ -359,6 +379,7 @@ NOT user=splunk-system-user
       </div>
       <p class="price-line center">Regular $99 · One-time purchase · License does not expire</p>
       <p class="price-fine center">Launch price limited to the first 10 redemptions.</p>
+      <p class="price-fine center">Not what you expected? Full refund within 14 days of purchase.</p>
     </div>
   </section>
 </main>
@@ -375,7 +396,7 @@ NOT user=splunk-system-user
         <li><a href="privacy/">Privacy</a></li>
         <li><a href="terms/">Terms</a></li>
         <li><a href="es/" hreflang="es" lang="es">Español</a></li>
-        <li><a href="mailto:alvaro.duemis@gmail.com">Support: alvaro.duemis@gmail.com</a></li>
+        <li><a href="mailto:support@logspendauditor.com">Support: support@logspendauditor.com</a></li>
       </ul>
     </nav>
   </div>
