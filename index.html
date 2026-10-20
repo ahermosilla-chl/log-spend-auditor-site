@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Log Spend Auditor — Local-first Splunk ingest cost analysis for Linux</title>
-<meta name="description" content="Local-first Splunk ingest cost analysis for Linux. Run a free Quickscan on your own machine to find ingest optimization candidates; upgrade to Pro for the full audit. No Splunk events leave your environment.">
+<title>Log Spend Auditor — Find the Splunk ingest nobody uses</title>
+<meta name="description" content="Find the Splunk data you pay to ingest but rarely search. Run a free, read-only Quickscan on your own machine to find ingest optimization candidates; upgrade to Pro for the full audit. No Splunk events leave your environment.">
 <link rel="canonical" href="https://logspendauditor.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Log Spend Auditor">
 <meta property="og:url" content="https://logspendauditor.com/">
-<meta property="og:title" content="Log Spend Auditor — Local-first Splunk ingest cost analysis for Linux">
+<meta property="og:title" content="Log Spend Auditor — Find the Splunk ingest nobody uses">
 <meta property="og:description" content="Find where your Splunk ingest budget is going — without sending your data anywhere. Free Community Quickscan; Pro for the full audit.">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0b0e13">
@@ -27,7 +27,8 @@
         <li><a href="#product">Product</a></li>
         <li><a href="#how-it-works">How it works</a></li>
         <li><a href="#compare">Community vs Pro</a></li>
-        <li><a href="#security">Security</a></li>
+        <li><a href="sample-report/">Sample report</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
     <a class="btn btn-primary btn-nav" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Free</a>
@@ -41,7 +42,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Local-first Splunk ingest analysis</p>
         <h1 id="hero-title">Find where your Splunk ingest budget is going — without sending your data anywhere.</h1>
-        <p class="lead">Log Spend Auditor analyzes aggregated ingest and usage metadata on your own machine and shows which Splunk datasets deserve a closer look.</p>
+        <p class="lead">Splunk bills you for every GB you ingest, whether anyone searches it or not. Log Spend Auditor crosses your license usage with real search, alert and dashboard activity and shows, per index and sourcetype, what you are paying for and not using.</p>
         <div class="cta">
           <a class="btn btn-primary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934" rel="noopener">Download Community — Free</a>
           <a class="btn btn-secondary" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
@@ -52,7 +53,9 @@
           <li>Runs locally</li>
           <li>Read-only</li>
           <li>No telemetry</li>
+          <li>No credentials needed (CSV mode)</li>
         </ul>
+        <p class="hero-link"><a href="sample-report/">See a complete sample Pro report →</a></p>
       </div>
 
       <figure class="result" aria-labelledby="result-cap">
@@ -100,7 +103,7 @@
         <p class="eyebrow">The problem</p>
         <h2 id="product-title">Ingest grows. Its value doesn't always keep up.</h2>
         <p class="body-lg">Splunk environments accumulate datasets whose operational value may no longer justify their cost. Log Spend Auditor helps teams decide where investigation is worthwhile.</p>
-        <p class="muted">Results are recommendations for human review. The tool never tells you to delete data, and it does not promise savings.</p>
+        <p class="muted">Every finding comes with the evidence behind it, so you can take it to the data owner and decide.</p>
       </div>
       <ul class="statements">
         <li><h3>Ingest grows</h3><p>New sources accumulate over time.</p></li>
@@ -132,6 +135,43 @@
         </li>
       </ol>
       <p class="muted">Works with real Splunk data through the REST API or CSV exports. Designed for Splunk teams.</p>
+    </div>
+  </section>
+
+
+  <section class="section" id="free-queries" aria-labelledby="queries-title">
+    <div class="wrap">
+      <p class="eyebrow">Free, no download</p>
+      <h2 id="queries-title">Three Splunk searches to see where your ingest goes.</h2>
+      <p class="body-lg narrow">Paste these into Splunk Search today. They need the <code>search</code> capability and read access to <code>_internal</code> and <code>_audit</code> — no admin role.</p>
+      <ol class="queries">
+        <li>
+          <h3>1. Your biggest datasets, in GB/day</h3>
+          <pre><code>index=_internal source=*license_usage.log type="Usage" earliest=-30d@d latest=@d
+| stats sum(b) as bytes by idx, st
+| eval gb_per_day=round(bytes/1024/1024/1024/30, 2)
+| sort - gb_per_day
+| head 20
+| rename idx as index, st as sourcetype</code></pre>
+        </li>
+        <li>
+          <h3>2. Which indexes people actually search</h3>
+          <pre><code>index=_audit action=search info=granted search=* earliest=-30d
+NOT user=splunk-system-user
+| rex field=search max_match=10 "index\s*=\s*\"?(?&lt;searched_index&gt;[\w\-\*]+)"
+| mvexpand searched_index
+| stats count as searches dc(user) as users by searched_index
+| sort - searches</code></pre>
+        </li>
+        <li>
+          <h3>3. Sourcetypes that went quiet</h3>
+          <pre><code>| metadata type=sourcetypes index=*
+| eval days_since_last_event=round((now()-recentTime)/86400, 1)
+| table sourcetype, totalCount, days_since_last_event
+| sort - days_since_last_event</code></pre>
+        </li>
+      </ol>
+      <p class="muted">Anything big in list 1 that never shows up in list 2 is worth a conversation. Matching them by hand gets slow past a few dozen datasets, and searches that reach data through macros, eventtypes, scheduled alerts or dashboards are easy to miss. That cross-check is what the free Quickscan automates.</p>
     </div>
   </section>
 
@@ -223,8 +263,7 @@
           <p class="arch-secure">Your Splunk data stays with you.</p>
         </div>
       </div>
-      <p class="muted">Findings are candidates for human review. Log Spend Auditor does not change Splunk configuration, delete data or disable indexes; you decide what action to take.</p>
-    </div>
+          </div>
   </section>
 
   <section class="section" id="compare" aria-labelledby="compare-title">
@@ -276,11 +315,12 @@
             <li>Recommendations</li>
             <li>HTML + Markdown reports</li>
           </ul>
+          <p class="ed-sample"><a href="sample-report/">View a sample Pro report →</a></p>
           <a class="btn btn-primary btn-block" href="https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69" rel="noopener">Buy Pro — $69</a>
           <p class="fine">Regular price $99 · One-time purchase. Launch price limited to the first 10 redemptions.</p>
         </article>
       </div>
-      <p class="muted center">Start with Community. Upgrade to Pro in the same application — no reinstall required. Findings are recommendations for human review; no savings are guaranteed.</p>
+      <p class="muted center">Start with Community. Upgrade to Pro in the same application — no reinstall required. <a href="sample-report/">See exactly what a Pro report contains.</a></p>
     </div>
   </section>
 
@@ -321,6 +361,53 @@
           <p class="plat-status"><span class="status-later">Coming later</span></p>
         </li>
       </ul>
+    </div>
+  </section>
+
+
+  <section class="section" id="builder" aria-labelledby="builder-title">
+    <div class="wrap two-col">
+      <div>
+        <p class="eyebrow">Who builds this</p>
+        <h2 id="builder-title">Built by an observability engineer, not a sales team.</h2>
+      </div>
+      <div>
+        <p class="body-lg">I'm Alvaro, an engineer who designs and runs monitoring and observability platforms for enterprise clients. The same question comes up in every Splunk environment: which of this data are we still paying for, and does anyone use it? Answering it meant days of hand-written searches and spreadsheets.</p>
+        <p class="body-lg">Log Spend Auditor is that work turned into a tool: read-only, local, and explainable line by line. Questions or a problem with a run? Write to me directly at <a href="mailto:alvaro.duemis@gmail.com">alvaro.duemis@gmail.com</a> and I will answer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-title">Questions Splunk admins ask first.</h2>
+      <div class="faq">
+        <details>
+          <summary>Do I have to give the tool my Splunk credentials?</summary>
+          <p>No. In CSV mode you run the bundled searches yourself, export the results and point the tool at the folder. It never talks to Splunk. REST mode is optional and uses a read-only token you provide, which stays on your machine.</p>
+        </details>
+        <details>
+          <summary>What Splunk permissions does it need?</summary>
+          <p>The <code>search</code> capability plus read access to <code>_internal</code> (license usage) and <code>_audit</code> (search activity). No admin role. It never creates, modifies or deletes configuration or data.</p>
+        </details>
+        <details>
+          <summary>Why does the free download go through a checkout?</summary>
+          <p>Community is delivered through Lemon Squeezy so you get a permanent download link by email. It costs nothing and needs no license key.</p>
+        </details>
+        <details>
+          <summary>I'm on a Mac or Windows laptop. Can I use it?</summary>
+          <p>The current build runs on Linux x86_64 with glibc 2.35 or newer, for example a jump host, a VM or WSL2 with Ubuntu 22.04. Native macOS and Windows builds come later.</p>
+        </details>
+        <details>
+          <summary>Will it tell me to delete data?</summary>
+          <p>No. It classifies each index and sourcetype and shows the evidence behind it. Findings are candidates for review with the data owner; savings are an estimate, not a guarantee, and you decide what to change.</p>
+        </details>
+        <details>
+          <summary>What do I get with Pro that Quickscan doesn't show?</summary>
+          <p>The full inventory of every dataset, the evidence and explanation for each classification, the Data Value Score, recommendations, risks and methodology, as an HTML and Markdown report you can share. <a href="sample-report/">Here is a complete example.</a></p>
+        </details>
+      </div>
     </div>
   </section>
 

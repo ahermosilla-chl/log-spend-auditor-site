@@ -6,11 +6,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 COMMUNITY = "https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934"
 PRO = "https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69"
-PAGES = ["index.html", "privacy/index.html", "terms/index.html"]
+PAGES = ["index.html", "privacy/index.html", "terms/index.html", "sample-report/index.html"]
 CANONICAL = {
     "index.html": "https://logspendauditor.com/",
     "privacy/index.html": "https://logspendauditor.com/privacy/",
     "terms/index.html": "https://logspendauditor.com/terms/",
+    "sample-report/index.html": "https://logspendauditor.com/sample-report/",
 }
 VOID = {"meta", "link", "br", "img", "hr", "input"}
 errors: list[str] = []
@@ -168,6 +169,11 @@ if re.search(r"(?i)subscri", raw):
 css = (ROOT / "site-v2.css").read_text(encoding="utf-8")
 if re.search(r"https?://|@import", css):
     err("site-v2.css: external reference")
+if re.search(r"https?://|@import", (ROOT / "sample-report/report.css").read_text(encoding="utf-8")):
+    err("sample-report/report.css: external reference")
+for page in PAGES:
+    if "<style" in parsed[page][0] or re.search(r"\sstyle=", parsed[page][0]):
+        err(f"{page}: inline styles break the CSP (style-src 'self')")
 
 # ambient animation must be CSS-only and disabled under prefers-reduced-motion
 if "@keyframes" in css:
@@ -177,6 +183,10 @@ if "@keyframes" in css:
 
 # every page must load the current stylesheet (stale cached CSS broke production once)
 for page in PAGES:
+    if page.startswith("sample-report/"):
+        if 'href="report.css"' not in parsed[page][0]:
+            err(f"{page}: does not link report.css")
+        continue
     if 'href="' + ("../" if "/" in page else "") + 'site-v2.css"' not in parsed[page][0]:
         err(f"{page}: does not link site-v2.css")
 if (ROOT / "style.css").exists():
