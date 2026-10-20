@@ -27,13 +27,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Validate the static site (links, checkout URLs, no external resources)
-        run: python3 scripts/validate_site.py
-
-      - name: Assemble the published files
-        run: |
-          mkdir _site
-          cp -r index.html privacy terms sample-report site-v2.css favicon.svg robots.txt sitemap.xml _site/
+      - name: Validate and assemble the published files
+        run: bash scripts/build_site.sh
 
       - uses: actions/configure-pages@v5
 
