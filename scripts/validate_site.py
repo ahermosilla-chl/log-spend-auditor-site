@@ -6,9 +6,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 COMMUNITY = "https://logspendauditor.lemonsqueezy.com/checkout/buy/523549b0-405d-4bcf-a2f1-47c3e58e5934"
 PRO = "https://logspendauditor.lemonsqueezy.com/checkout/buy/294c335c-f859-4297-9a2c-e9415ec3e669?checkout[discount_code]=LAUNCH69"
-PAGES = ["index.html", "privacy/index.html", "terms/index.html", "sample-report/index.html"]
+PAGES = ["index.html", "es/index.html", "docs/index.html", "es/docs/index.html", "privacy/index.html", "terms/index.html", "sample-report/index.html"]
 CANONICAL = {
     "index.html": "https://logspendauditor.com/",
+    "es/index.html": "https://logspendauditor.com/es/",
+    "docs/index.html": "https://logspendauditor.com/docs/",
+    "es/docs/index.html": "https://logspendauditor.com/es/docs/",
     "privacy/index.html": "https://logspendauditor.com/privacy/",
     "terms/index.html": "https://logspendauditor.com/terms/",
     "sample-report/index.html": "https://logspendauditor.com/sample-report/",
@@ -63,7 +66,11 @@ for page in PAGES:
             err(f"{page}: forbidden <{tag}>")
         if tag in ("img", "link", "source", "video", "audio", "use"):
             ref = a.get("src") or a.get("href") or ""
-            if tag == "link" and a.get("rel") == "canonical":
+            if tag == "link" and a.get("rel") == "alternate":
+                if ref not in ("https://logspendauditor.com/", "https://logspendauditor.com/es/",
+                               "https://logspendauditor.com/docs/", "https://logspendauditor.com/es/docs/"):
+                    err(f"{page}: unexpected hreflang alternate {ref}")
+            elif tag == "link" and a.get("rel") == "canonical":
                 if ref != CANONICAL[page]:
                     err(f"{page}: canonical is {ref!r}, expected {CANONICAL[page]!r}")
             elif re.match(r"(https?:)?//", ref):
@@ -140,11 +147,11 @@ for page in PAGES:
             else:
                 why_ = why
             err(f"{page}: {why_}: {val!r}")
-    for needle in ("not affiliated with or endorsed by Splunk Inc",):
-        if needle not in raw:
-            err(f"{page}: missing trademark disclaimer")
-    if "Last updated" in raw and "2026-10-09" not in raw:
-        err(f"{page}: Last updated not 2026-10-09")
+    if not any(n in raw for n in ("not affiliated with or endorsed by Splunk Inc", "no está afiliado ni respaldado por Splunk Inc")):
+        err(f"{page}: missing trademark disclaimer")
+    expected_date = {"terms/index.html": "2026-10-19"}.get(page, "2026-10-09")
+    if "Last updated" in raw and expected_date not in raw:
+        err(f"{page}: Last updated not {expected_date}")
 
 # checkout CTAs on landing
 raw, p = parsed["index.html"]
@@ -160,6 +167,15 @@ for k in ("Regular price $99", "One-time purchase", "Built and tested on Ubuntu 
           "Find where your Splunk ingest budget is going — without sending your data anywhere."):
     if k not in raw:
         err(f"index.html: missing copy {k!r}")
+raw_es, p_es = parsed["es/index.html"]
+for label, url in (("Descargar Community — Gratis", COMMUNITY), ("Comprar Pro — US$69", PRO)):
+    found = re.findall(r'<a[^>]*href="([^"]+)"[^>]*>\s*' + re.escape(label) + r"\s*</a>", raw_es)
+    if len(found) < 3 or any(f != url for f in found):
+        err(f"es CTA {label!r}: expected >=3 links, all exactly {url}; got {found}")
+for k in ('hreflang="es" href="https://logspendauditor.com/es/"', 'hreflang="en" href="https://logspendauditor.com/"'):
+    for page in ("index.html", "es/index.html"):
+        if k not in parsed[page][0]:
+            err(f"{page}: missing alternate {k}")
 if hrefs.count(COMMUNITY) + hrefs.count(PRO) != sum(1 for h in hrefs if h and "lemonsqueezy" in h):
     err("index.html: unexpected lemonsqueezy link")
 if re.search(r"(?i)subscri", raw):
@@ -187,7 +203,7 @@ for page in PAGES:
         if 'href="report.css"' not in parsed[page][0]:
             err(f"{page}: does not link report.css")
         continue
-    if 'href="' + ("../" if "/" in page else "") + 'site-v2.css"' not in parsed[page][0]:
+    if 'href="' + "../" * page.count("/") + 'site-v2.css"' not in parsed[page][0]:
         err(f"{page}: does not link site-v2.css")
 if (ROOT / "style.css").exists():
     err("old style.css still present")
