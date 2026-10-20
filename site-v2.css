@@ -376,3 +376,25 @@ ul.check li::before { content: ""; position: absolute; left: 3px; top: 1.08em; w
   .brand { gap: 7px; }
   .btn-nav { padding: 0 9px; font-size: 12px; }
 }
+
+/* --- conversion pass: sample report link, free queries, builder, FAQ --- */
+.hero-link { margin-top: 22px; font-size: 15px; }
+.hero-link a, .ed-sample a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.hero-link a:hover, .ed-sample a:hover { text-decoration: underline; }
+.ed-sample { margin: 18px 0 14px; font-size: 14.5px; }
+.queries { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 44px; }
+.queries li { min-width: 0; }
+.queries h3 { font-size: 18px; margin-bottom: 10px; }
+.queries pre { margin: 0; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); overflow-x: auto; font: 13px/1.6 var(--mono); color: var(--text-2); }
+.queries + .muted { margin-top: 32px; max-width: 75ch; }
+.section code { font-family: var(--mono); font-size: .92em; color: var(--text); }
+#builder .body-lg + .body-lg { margin-top: 16px; }
+#builder a, .faq a { color: var(--accent); }
+.faq { margin-top: 40px; border-top: 1px solid var(--border); max-width: 860px; }
+.faq details { border-bottom: 1px solid var(--border); }
+.faq summary { padding: 20px 28px 20px 0; cursor: pointer; font-weight: 600; font-size: 17px; list-style: none; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 18px; color: var(--accent); font-size: 20px; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding: 0 0 22px; color: var(--muted); max-width: 72ch; }
+@media (max-width: 720px) { .queries pre { font-size: 12px; } .faq summary { font-size: 16px; } }
