@@ -252,6 +252,10 @@ from i18n_extra import EN_EXTRA, ES_EXTRA  # noqa: E402  (docs and validation st
 
 EN.update(EN_EXTRA)
 ES.update(ES_EXTRA)
+from i18n_sales import SALES_EN, SALES_ES  # noqa: E402  (sales-page copy, overrides)
+
+EN.update(SALES_EN)
+ES.update(SALES_ES)
 DOCS_TEMPLATE = (ROOT / "scripts/i18n/docs.html").read_text(encoding="utf-8")
 
 

@@ -17,9 +17,10 @@
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{og_description}">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#0b0e13">
+<meta name="theme-color" content="#0f1e3c">
 <link rel="icon" type="image/svg+xml" href="{root}favicon.svg">
-<link rel="stylesheet" href="{root}site-v2.css">
+<link rel="preload" href="{root}fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{root}site-v3.css">
 </head>
 <body>
 <a class="skip" href="#main">{skip}</a>
@@ -32,7 +33,6 @@
         <li><a href="#how-it-works">{nav_how}</a></li>
         <li><a href="#report">{nav_report}</a></li>
         <li><a href="#pricing">{nav_pricing}</a></li>
-        <li><a href="#security">{nav_security}</a></li>
         <li><a href="docs/">{nav_docs}</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -47,132 +47,104 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">{hero_eyebrow}</p>
         <h1 id="hero-title">{hero_title}</h1>
         <p class="lead">{hero_lead}</p>
         <div class="cta">
           <a class="btn btn-primary" href="{community_url}" rel="noopener">{cta_community}</a>
           <a class="btn btn-secondary" href="{pro_url}" rel="noopener">{cta_pro}</a>
         </div>
-        <p class="price-line">{price_line}</p>
-        <p class="price-fine">{price_fine}</p>
-        <ul class="chips" aria-label="{chips_label}">
+        <p class="price-note">{hero_price_note}</p>
+        <ul class="assure" aria-label="{chips_label}">
           <li>{chip_readonly}</li>
           <li>{chip_local}</li>
           <li>{chip_nocreds}</li>
-          <li>{chip_notelemetry}</li>
         </ul>
       </div>
 
-      <figure class="result" aria-labelledby="result-cap">
-        <div class="result-head">
-          <span class="result-title">Quickscan</span>
-          <span class="result-tag">{result_tag}</span>
+      <figure class="statement" aria-labelledby="statement-cap">
+        <div class="statement-head">
+          <p class="statement-title">{st_title}</p>
+          <p class="statement-meta">{st_meta}</p>
         </div>
-        <p class="result-cmd"><span class="prompt" aria-hidden="true">$</span> splunk-spend-auditor quickscan --from-csv sample-data/case_mixed</p>
-        <dl class="stats">
-          <div><dt>{stat_ingest}</dt><dd>199.9 <small>GB/{per_day}</small></dd></div>
-          <div><dt>{stat_datasets}</dt><dd>12 <small>{stat_analyzed}</small></dd></div>
-          <div><dt>{stat_review}</dt><dd>77.3 <small>GB/{per_day}</small></dd></div>
-        </dl>
-        <p class="result-sub">{result_sub}</p>
-        <ul class="cands">
-          <li><span class="cand-name">app:verbose_debug</span><span class="cand-val">38.0 <small>GB/{per_day}</small></span><span class="cand-status st-waste">POSSIBLE_WASTE</span><span class="cand-bar" aria-hidden="true"><i class="w100"></i></span></li>
-          <li><span class="cand-name">windows:eventlog_raw</span><span class="cand-val">29.9 <small>GB/{per_day}</small></span><span class="cand-status st-waste">POSSIBLE_WASTE</span><span class="cand-bar" aria-hidden="true"><i class="w79"></i></span></li>
-          <li><span class="cand-name">integration:partner_feed</span><span class="cand-val">9.1 <small>GB/{per_day}</small></span><span class="cand-status st-review">REVIEW</span><span class="cand-bar" aria-hidden="true"><i class="w24"></i></span></li>
-        </ul>
-        <figcaption id="result-cap">{result_caption}</figcaption>
+        <table>
+          <thead>
+            <tr><th scope="col">{st_col_ds}</th><th scope="col">GB/{per_day}</th><th scope="col">{st_col_searches}</th><th scope="col">{st_col_alerts}</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="ds"><span class="mk d1">k8s:kube_container_logs</span></td><td>61.0</td><td><span class="mk d1">0</span></td><td>{no}</td></tr>
+            <tr><td class="ds">web:nginx_access</td><td>42.0</td><td>66</td><td>{no}</td></tr>
+            <tr><td class="ds"><span class="mk d2">app:debug_verbose</span></td><td>38.0</td><td><span class="mk d2">0</span></td><td>{no}</td></tr>
+            <tr><td class="ds">cdn:edge_access</td><td>30.0</td><td>36</td><td>{yes}</td></tr>
+            <tr><td class="ds"><span class="mk-review">infra:windows_perfmon</span></td><td>24.0</td><td>1</td><td>{no}</td></tr>
+            <tr><td class="ds">security:ids_alerts<span class="note-protected">{st_protected}</span></td><td>9.0</td><td>0</td><td>{no}</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3">{st_total}</td><td>267.2 GB</td></tr>
+            <tr class="tot-waste"><td colspan="3">{st_waste}</td><td>99.0 GB</td></tr>
+          </tfoot>
+        </table>
+        <figcaption id="statement-cap">{st_caption}</figcaption>
       </figure>
     </div>
   </section>
 
   <section class="section" id="problem" aria-labelledby="problem-title">
-    <div class="wrap two-col">
+    <div class="wrap split">
       <div>
-        <p class="eyebrow">{problem_eyebrow}</p>
-        <h2 id="problem-title">{problem_title}</h2>
-        <p class="body-lg">{problem_body}</p>
+        <h2 id="problem-title">{pain_title}</h2>
+        <p class="body-lg">{pain_body}</p>
       </div>
-      <ul class="statements">
-        <li><h3>{problem_1_t}</h3><p>{problem_1_p}</p></li>
-        <li><h3>{problem_2_t}</h3><p>{problem_2_p}</p></li>
-        <li><h3>{problem_3_t}</h3><p>{problem_3_p}</p></li>
+      <div>
+        <ul class="pain-list">
+          <li><span class="what">{pain_1}</span><span class="why">{pain_1_why}</span></li>
+          <li><span class="what">{pain_2}</span><span class="why">{pain_2_why}</span></li>
+          <li><span class="what">{pain_3}</span><span class="why">{pain_3_why}</span></li>
+          <li><span class="what">{pain_4}</span><span class="why">{pain_4_why}</span></li>
+        </ul>
+        <p class="pain-close">{pain_close}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="math" id="math" aria-labelledby="math-title">
+    <div class="wrap">
+      <h2 id="math-title">{math_title}</h2>
+      <ul class="math-grid">
+        <li><span class="math-fig">{math_1_fig}</span><p>{math_1}</p></li>
+        <li><span class="math-fig">{math_2_fig}</span><p>{math_2}</p></li>
+        <li><span class="math-fig">{math_3_fig}</span><p>{math_3}</p></li>
       </ul>
+      <p class="math-foot">{math_foot}</p>
     </div>
   </section>
 
-  <section class="section section-alt" id="how-it-works" aria-labelledby="how-title">
+  <section class="section" id="how-it-works" aria-labelledby="how-title">
     <div class="wrap">
-      <p class="eyebrow">{how_eyebrow}</p>
-      <h2 id="how-title">{how_title}</h2>
-      <p class="body-lg narrow">{how_body}</p>
-      <div class="arch">
-        <ol class="arch-flow" aria-label="{how_flow_label}">
-          <li class="stage stage-input">
-            <p class="stage-tag"><span class="stage-no">01</span><span class="stage-name">{s1_tag}</span></p>
-            <div class="stage-body">
-              <h3>{s1_title}</h3>
-              <ul class="sources">
-                <li class="src">{s1_src_csv}</li>
-                <li class="src-or" aria-hidden="true">{or}</li>
-                <li class="src">{s1_src_rest}</li>
-              </ul>
-              <p class="stage-text">{s1_text}</p>
-              <p class="stage-note">{s1_note}</p>
-            </div>
-          </li>
-          <li class="stage stage-collect">
-            <p class="stage-tag"><span class="stage-no">02</span><span class="stage-name">{s2_tag}</span></p>
-            <div class="stage-body">
-              <h3>{s2_title}</h3>
-              <ul class="props">
-                <li>{s2_p1}</li>
-                <li>{s2_p2}</li>
-                <li>{s2_p3}</li>
-              </ul>
-            </div>
-          </li>
-          <li class="stage stage-engine">
-            <p class="stage-tag"><span class="stage-no">03</span><span class="stage-name">{s3_tag}</span></p>
-            <div class="stage-body">
-              <h3>{s3_title}</h3>
-              <ul class="signals">
-                <li>{s3_p1}</li>
-                <li>{s3_p2}</li>
-                <li>{s3_p3}</li>
-                <li>{s3_p4}</li>
-              </ul>
-            </div>
-          </li>
-          <li class="stage stage-act">
-            <p class="stage-tag"><span class="stage-no">04</span><span class="stage-name">{s4_tag}</span></p>
-            <div class="stage-body outputs">
-              <div class="output output-community">
-                <h3><span class="out-edition">Community</span> <span class="out-name">Quickscan</span></h3>
-                <ul><li>{s4_c1}</li><li>{s4_c2}</li><li>{s4_c3}</li></ul>
-              </div>
-              <div class="output output-pro">
-                <h3><span class="out-edition">Pro</span> <span class="out-name">{s4_pro_name}</span></h3>
-                <ul><li>{s4_p1}</li><li>{s4_p2}</li><li>{s4_p3}</li></ul>
-              </div>
-            </div>
-          </li>
-        </ol>
+      <div class="section-head">
+        <h2 id="how-title">{how_title}</h2>
+        <p class="body-lg">{how_body}</p>
       </div>
+      <ol class="steps">
+        <li><h3>{step_1_t}</h3><p>{step_1_p}</p></li>
+        <li><h3>{step_2_t}</h3><p>{step_2_p}</p></li>
+        <li><h3>{step_3_t}</h3><p>{step_3_p}</p></li>
+        <li><h3>{step_4_t}</h3><p>{step_4_p}</p></li>
+      </ol>
     </div>
   </section>
 
-  <section class="section" id="report" aria-labelledby="report-title">
+  <section class="section section-paper" id="report" aria-labelledby="report-title">
     <div class="wrap">
-      <p class="eyebrow">{report_eyebrow}</p>
-      <h2 id="report-title">{report_title}</h2>
-      <p class="body-lg narrow">{report_body}</p>
+      <div class="section-head">
+        <h2 id="report-title">{report_title}</h2>
+        <p class="body-lg">{report_body}</p>
+      </div>
       <div class="report-grid">
         <article class="finding" aria-label="{finding_label}">
           <p class="finding-kicker">{finding_kicker}</p>
           <div class="finding-head">
             <span class="finding-name">app:debug_verbose</span>
-            <span class="cand-status st-waste">POSSIBLE_WASTE</span>
+            <span class="status status-waste">{lbl_waste}</span>
           </div>
           <dl class="finding-signals">
             <div><dt>{sig_ingest}</dt><dd>38.0 GB/{per_day}</dd></div>
@@ -185,112 +157,40 @@
         </article>
         <div class="legend">
           <h3>{legend_title}</h3>
-          <ul>
-            <li><span class="tag tag-waste">POSSIBLE_WASTE</span><p>{legend_waste}</p></li>
-            <li><span class="tag tag-review">REVIEW</span><p>{legend_review}</p></li>
-            <li><span class="tag tag-value">HIGH_VALUE</span><p>{legend_value}</p></li>
-            <li><span class="tag tag-protected">PROTECTED</span><p>{legend_protected}</p></li>
-            <li><span class="tag tag-normal">NORMAL</span> <span class="tag tag-unknown">UNKNOWN</span><p>{legend_other}</p></li>
-          </ul>
+          <dl>
+            <div><dt><span class="status status-waste">{lbl_waste}</span></dt><dd>{legend_waste}</dd></div>
+            <div><dt><span class="status status-review">{lbl_review}</span></dt><dd>{legend_review}</dd></div>
+            <div><dt><span class="status status-value">{lbl_value}</span></dt><dd>{legend_value}</dd></div>
+            <div><dt><span class="status status-protected">{lbl_protected}</span></dt><dd>{legend_protected}</dd></div>
+          </dl>
           <p class="legend-link"><a href="{root}sample-report/">{report_link}</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="tested" aria-labelledby="tested-title">
-    <div class="wrap two-col">
+  <section class="section" id="tested" aria-labelledby="tested-title">
+    <div class="wrap split">
       <div>
-        <p class="eyebrow">{t_eyebrow}</p>
         <h2 id="tested-title">{t_title}</h2>
         <p class="body-lg">{t_body}</p>
         <p class="muted">{t_limits}</p>
       </div>
-      <ul class="statements">
-        <li><h3>{t_1_t}</h3><p>{t_1_p}</p></li>
-        <li><h3>{t_2_t}</h3><p>{t_2_p}</p></li>
-        <li><h3>{t_3_t}</h3><p>{t_3_p}</p></li>
-        <li><h3>{t_4_t}</h3><p>{t_4_p}</p></li>
+      <ul class="proof">
+        <li><div><h3>{t_1_t}</h3><p>{t_1_p}</p></div></li>
+        <li><div><h3>{t_2_t}</h3><p>{t_2_p}</p></div></li>
+        <li><div><h3>{t_3_t}</h3><p>{t_3_p}</p></div></li>
+        <li><div><h3>{t_4_t}</h3><p>{t_4_p}</p></div></li>
       </ul>
     </div>
   </section>
 
-  <section class="section" id="pricing" aria-labelledby="pricing-title">
+  <section class="section section-paper" id="security" aria-labelledby="security-title">
     <div class="wrap">
-      <p class="eyebrow">{pricing_eyebrow}</p>
-      <h2 id="pricing-title">{pricing_title}</h2>
-      <p class="body-lg narrow">{pricing_body}</p>
-      <div class="editions">
-        <article class="edition" aria-labelledby="ed-community">
-          <div class="ed-top"><h3 id="ed-community" class="ed-label">Community</h3></div>
-          <div class="ed-price">
-            <p class="amount">{free}</p>
-            <p class="amount-sub">{no_license}</p>
-          </div>
-          <p class="ed-tagline">{community_tagline}</p>
-          <ul class="check">
-            <li>{c_f1}</li>
-            <li>{c_f2}</li>
-            <li>{c_f3}</li>
-            <li>{c_f4}</li>
-            <li>{c_f5}</li>
-          </ul>
-          <a class="btn btn-secondary btn-block" href="{community_url}" rel="noopener">{cta_community}</a>
-        </article>
-        <article class="edition edition-pro" aria-labelledby="ed-pro">
-          <div class="ed-top">
-            <h3 id="ed-pro" class="ed-label">Pro</h3>
-            <span class="badge-launch">{launch}</span>
-          </div>
-          <div class="ed-price">
-            <p class="amount">{price_launch}</p>
-            <p class="amount-sub">{launch_price}</p>
-            <p class="amount-was">{price_regular_short}</p>
-          </div>
-          <p class="ed-tagline">{pro_tagline}</p>
-          <ul class="terms">
-            <li>{one_time}</li>
-            <li>{one_install}</li>
-            <li>{no_expire}</li>
-          </ul>
-          <ul class="check">
-            <li>{p_f1}</li>
-            <li>{p_f2}</li>
-            <li>{p_f3}</li>
-            <li>{p_f4}</li>
-            <li>{p_f5}</li>
-          </ul>
-          <p class="ed-sample"><a href="{root}sample-report/">{report_link_short}</a></p>
-          <a class="btn btn-primary btn-block" href="{pro_url}" rel="noopener">{cta_pro}</a>
-          <p class="fine">{pro_fine}</p>
-        </article>
+      <div class="section-head">
+        <h2 id="security-title">{sec_title}</h2>
+        <p class="body-lg">{sec_body}</p>
       </div>
-      <p class="muted center">{upgrade_note}</p>
-      <ul class="platforms" aria-label="{platforms_label}">
-        <li class="plat-live">
-          <h3>Linux x86_64</h3>
-          <p class="plat-status"><span class="status-ok">{available_now}</span></p>
-          <p class="plat-detail">{plat_tested}</p>
-          <p class="plat-detail">{plat_glibc}</p>
-        </li>
-        <li>
-          <h3>macOS</h3>
-          <p class="plat-status"><span class="status-later">{coming_later}</span></p>
-        </li>
-        <li>
-          <h3>Windows</h3>
-          <p class="plat-status"><span class="status-later">{coming_later}</span></p>
-          <p class="plat-detail">{plat_wsl}</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="security" aria-labelledby="security-title">
-    <div class="wrap">
-      <p class="eyebrow">{sec_eyebrow}</p>
-      <h2 id="security-title">{sec_title}</h2>
-      <p class="body-lg narrow">{sec_body}</p>
       <ul class="facts">
         <li><h3>{sec_1_t}</h3><p>{sec_1_p}</p></li>
         <li><h3>{sec_2_t}</h3><p>{sec_2_p}</p></li>
@@ -303,11 +203,105 @@
     </div>
   </section>
 
-  <section class="section" id="free-queries" aria-labelledby="queries-title">
+  <section class="section" id="pricing" aria-labelledby="pricing-title">
     <div class="wrap">
-      <p class="eyebrow">{q_eyebrow}</p>
-      <h2 id="queries-title">{q_title}</h2>
-      <p class="body-lg narrow">{q_body}</p>
+      <div class="section-head">
+        <h2 id="pricing-title">{pricing_title}</h2>
+        <p class="body-lg">{pricing_body}</p>
+      </div>
+      <div class="pricing-grid">
+        <article class="plan" aria-labelledby="plan-community">
+          <h3 id="plan-community" class="plan-name">Community</h3>
+          <div class="plan-price"><span class="plan-amount">{free}</span></div>
+          <p class="plan-sub">{no_license}</p>
+          <p class="plan-tagline">{community_tagline}</p>
+          <ul class="check">
+            <li>{c_f1}</li>
+            <li>{c_f2}</li>
+            <li>{c_f3}</li>
+            <li>{c_f4}</li>
+            <li>{c_f5}</li>
+          </ul>
+          <a class="btn btn-secondary btn-block" href="{community_url}" rel="noopener">{cta_community}</a>
+        </article>
+        <article class="plan plan-pro" aria-labelledby="plan-pro">
+          <p class="plan-badge">{launch_badge}</p>
+          <h3 id="plan-pro" class="plan-name">Pro</h3>
+          <div class="plan-price"><span class="plan-amount">{price_launch}</span><span class="plan-was">{price_regular_plain}</span></div>
+          <p class="plan-sub">{pro_sub}</p>
+          <p class="plan-tagline">{pro_tagline}</p>
+          <ul class="check">
+            <li class="strong">{p_f0}</li>
+            <li>{p_f1}</li>
+            <li>{p_f2}</li>
+            <li>{p_f3}</li>
+            <li>{p_f4}</li>
+            <li>{p_f5}</li>
+            <li>{one_install}</li>
+            <li>{no_expire}</li>
+          </ul>
+          <p class="plan-sample"><a href="{root}sample-report/">{report_link_short}</a></p>
+          <a class="btn btn-primary btn-block" href="{pro_url}" rel="noopener">{cta_pro}</a>
+          <p class="plan-fine">{pro_fine}</p>
+        </article>
+      </div>
+      <div class="try-first">
+        <h3>{g_title}</h3>
+        <p>{g_body}</p>
+      </div>
+      <p class="upgrade-note">{upgrade_note}</p>
+      <ul class="platforms" aria-label="{platforms_label}">
+        <li>
+          <h3>Linux x86_64</h3>
+          <p class="plat-status status-ok">{available_now}</p>
+          <p class="plat-detail">{plat_tested}</p>
+          <p class="plat-detail">{plat_glibc}</p>
+        </li>
+        <li>
+          <h3>Windows</h3>
+          <p class="plat-status status-later">{coming_later}</p>
+          <p class="plat-detail">{plat_wsl}</p>
+        </li>
+        <li>
+          <h3>macOS</h3>
+          <p class="plat-status status-later">{coming_later}</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-paper" id="builder" aria-labelledby="builder-title">
+    <div class="wrap">
+      <div class="note-card">
+        <h2 id="builder-title">{builder_title}</h2>
+        <p class="body-lg">{builder_p1}</p>
+        <p class="body-lg">{builder_p2}</p>
+        <p class="signature">Alvaro<span>{builder_sig}</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <h2 id="faq-title">{faq_title}</h2>
+      <div class="faq">
+        <details><summary>{faq_1_q}</summary><p>{faq_1_a}</p></details>
+        <details><summary>{faq_2_q}</summary><p>{faq_2_a}</p></details>
+        <details><summary>{faq_7_q}</summary><p>{faq_7_a}</p></details>
+        <details><summary>{faq_3_q}</summary><p>{faq_3_a}</p></details>
+        <details><summary>{faq_4_q}</summary><p>{faq_4_a}</p></details>
+        <details><summary>{faq_5_q}</summary><p>{faq_5_a}</p></details>
+        <details><summary>{faq_6_q}</summary><p>{faq_6_a}</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper" id="free-queries" aria-labelledby="queries-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="queries-title">{q_title}</h2>
+        <p class="body-lg">{q_body}</p>
+      </div>
       <ol class="queries">
         <li>
           <h3>{q1_title}</h3>
@@ -339,34 +333,6 @@ NOT user=splunk-system-user
     </div>
   </section>
 
-  <section class="section section-alt" id="builder" aria-labelledby="builder-title">
-    <div class="wrap two-col">
-      <div>
-        <p class="eyebrow">{builder_eyebrow}</p>
-        <h2 id="builder-title">{builder_title}</h2>
-      </div>
-      <div>
-        <p class="body-lg">{builder_p1}</p>
-        <p class="body-lg">{builder_p2}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq" aria-labelledby="faq-title">
-    <div class="wrap">
-      <p class="eyebrow">FAQ</p>
-      <h2 id="faq-title">{faq_title}</h2>
-      <div class="faq">
-        <details><summary>{faq_1_q}</summary><p>{faq_1_a}</p></details>
-        <details><summary>{faq_2_q}</summary><p>{faq_2_a}</p></details>
-        <details><summary>{faq_3_q}</summary><p>{faq_3_a}</p></details>
-        <details><summary>{faq_4_q}</summary><p>{faq_4_a}</p></details>
-        <details><summary>{faq_5_q}</summary><p>{faq_5_a}</p></details>
-        <details><summary>{faq_6_q}</summary><p>{faq_6_a}</p></details>
-      </div>
-    </div>
-  </section>
-
   <section class="final" id="get-started" aria-labelledby="final-title">
     <div class="wrap final-inner">
       <h2 id="final-title">{final_title}</h2>
@@ -375,8 +341,7 @@ NOT user=splunk-system-user
         <a class="btn btn-primary" href="{community_url}" rel="noopener">{cta_community}</a>
         <a class="btn btn-secondary" href="{pro_url}" rel="noopener">{cta_pro}</a>
       </div>
-      <p class="price-line center">{price_line}</p>
-      <p class="price-fine center">{price_fine}</p>
+      <p class="price-note">{final_note}</p>
     </div>
   </section>
 </main>
@@ -390,10 +355,11 @@ NOT user=splunk-system-user
     </div>
     <nav aria-label="{footer_label}">
       <ul class="links">
+        <li><a href="docs/">{nav_docs}</a></li>
         <li><a href="{root}privacy/">{privacy}</a></li>
         <li><a href="{root}terms/">{terms}</a></li>
         <li><a href="{other_lang_href}" hreflang="{other_lang}" lang="{other_lang}">{other_lang_name}</a></li>
-        <li><a href="mailto:{support_email}">{support}: {support_email}</a></li>
+        <li><a href="mailto:{support_email}">{support_email}</a></li>
       </ul>
     </nav>
   </div>

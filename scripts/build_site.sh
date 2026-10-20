@@ -6,5 +6,5 @@ cd "$(dirname "$0")/.."
 python3 scripts/build_i18n.py
 python3 scripts/validate_site.py
 rm -rf _site && mkdir _site
-cp -r index.html es docs 404.html privacy terms sample-report site-v2.css favicon.svg robots.txt sitemap.xml _headers _site/
+cp -r index.html es docs 404.html privacy terms sample-report site-v3.css fonts favicon.svg robots.txt sitemap.xml _headers _site/
 echo "Built _site/:"; find _site -type f | sort
